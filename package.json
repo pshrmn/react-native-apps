@@ -10,6 +10,7 @@
     "@curi/core": "^1.0.0-beta.26",
     "@curi/react-native": "^1.0.0-beta.2",
     "@hickory/in-memory": "^1.0.0-beta.3",
+    "moment": "^2.20.1",
     "react": "16.2.0",
     "react-native": "0.52.1",
     "react-redux": "^5.0.6",
