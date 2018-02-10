@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableHighlight, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import EvilIcon from 'react-native-vector-icons/EvilIcons';
 
 import genres from '../constants/genres';
 import { finishBook, removeBook } from '../store/actions';
@@ -13,12 +14,17 @@ function genreColor(genre) {
     : '#ccc';
 }
 
-const ControlButton = ({ children, onPress }) => (
+const ControlButton = ({ text, onPress, icon }) => (
   <TouchableHighlight
     onPress={onPress}
     style={styles.controlButton}
   >
-    <Text style={styles.controlButtonText}>{children}</Text>
+    <View style={styles.buttonInner}>
+      { icon ? <EvilIcon style={styles.icon} name={icon} /> : null }
+      <Text style={styles.controlButtonText}>
+        {text}
+      </Text>
+    </View>
   </TouchableHighlight>
 )
 
@@ -74,13 +80,17 @@ class BookListItem extends React.Component {
           {
             finished
               ? null
-              : <ControlButton onPress={this.finishBook}>
-                  Finish
-                </ControlButton>
+              : <ControlButton
+                  onPress={this.finishBook}
+                  text='Finish'
+                  icon='check'
+                />
           }
-          <ControlButton onPress={this.removeBook}>
-            Remove
-          </ControlButton>
+          <ControlButton
+            onPress={this.removeBook}
+            text='Remove'
+            icon='trash'
+          />
         </View>
       </View>
     );
@@ -116,13 +126,20 @@ const styles = StyleSheet.create({
   },
   controlButton: {
     padding: 5,
+    marginVertical: 1,
     backgroundColor: '#CCC',
     borderRadius: 5
+  },
+  buttonInner: {
+    flexDirection: 'row'
   },
   controlButtonText: {
     fontSize: 15,
     color: '#222233',
     textAlign: 'center'
+  },
+  icon: {
+    fontSize: 25
   }
 });
 
