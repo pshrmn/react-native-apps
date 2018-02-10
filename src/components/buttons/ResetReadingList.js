@@ -2,7 +2,7 @@ import React from 'react';
 import { TouchableOpacity, Text, StyleSheet, Alert } from 'react-native';
 import { connect } from 'react-redux';
 
-import { clearBooks } from '../store/actions';
+import { clearBooks } from '../../store/actions';
 
 class ResetReadingList extends React.Component {
   handlePress = () => {

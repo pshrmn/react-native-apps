@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import ScreenWithBackButton from '../components/ScreenWithBackButton';
 import BookListItem from '../components/BookListItem';
-import ResetReadingList from '../components/ResetReadingList';
+import ResetReadingList from '../components/buttons/ResetReadingList';
 import ListSeparator from '../components/ListSeparator';
 
 const ReadingList = ({ router, books }) => (
