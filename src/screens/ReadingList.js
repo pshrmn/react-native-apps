@@ -8,10 +8,10 @@ import ResetReadingList from '../components/buttons/ResetReadingList';
 import ListSeparator from '../components/ListSeparator';
 
 const ReadingList = ({ router, books }) => (
-  <ScreenWithBackButton router={router}>
-    <View style={styles.header}>
-      <Text style={styles.headerText}>Reading List</Text>
-    </View>
+  <ScreenWithBackButton
+    router={router}
+    headline='Reading List'
+  >
     <View style={styles.list}>
       <View style={styles.controls}>
         <ResetReadingList />
@@ -29,14 +29,6 @@ const ReadingList = ({ router, books }) => (
 );
 
 const styles = StyleSheet.create({
-  header: {
-    alignItems: 'center',
-    marginVertical: 25
-  },
-  headerText: {
-    color: '#222233',
-    fontSize: 50
-  },
   controls: {
     alignItems: 'flex-end'
   },

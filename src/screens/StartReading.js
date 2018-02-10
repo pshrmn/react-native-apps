@@ -6,7 +6,7 @@ import ScreenWithBackButton from '../components/ScreenWithBackButton';
 import AddBook from '../components/forms/AddBook';
 
 const StartReading = ({ router }) => (
-  <ScreenWithBackButton router={router}>
+  <ScreenWithBackButton router={router} backText='Cancel' headline='Add A Book'>
     <AddBook />
   </ScreenWithBackButton>
 );

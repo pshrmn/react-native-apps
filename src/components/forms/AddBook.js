@@ -94,7 +94,6 @@ class AddBook extends React.Component {
       <View>
         <Error errors={errors} />
         <View style={styles.container}>
-          <Text style={styles.header}>Start Reading A Book</Text>
           <View>
             <Text>Title</Text>
             <TextInput value={title} onChangeText={this.handleTitle} />
@@ -139,9 +138,6 @@ class AddBook extends React.Component {
 const styles = StyleSheet.create({
   container: {
     padding: 10
-  },
-  header: {
-    fontSize: 25
   },
   error: {
     backgroundColor: '#f00',
