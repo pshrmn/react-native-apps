@@ -1,6 +1,7 @@
 import Home from './screens/Home';
 import StartReading from './screens/StartReading';
 import ReadingList from './screens/ReadingList';
+import Book from './screens/Book';
 
 export default [
   {
@@ -27,6 +28,15 @@ export default [
     match: {
       response({ set }) {
         set.body(ReadingList);
+      }
+    }
+  },
+  {
+    name: 'Book',
+    path: 'book/:id',
+    match: {
+      response({ set }) {
+        set.body(Book);
       }
     }
   }

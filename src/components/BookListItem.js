@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableHighlight, Alert } from 'react-native'
 import { connect } from 'react-redux';
 import moment from 'moment';
 import EvilIcon from 'react-native-vector-icons/EvilIcons';
+import { Link } from '@curi/react-native';
 
 import genres from '../constants/genres';
 import { finishBook, removeBook } from '../store/actions';
@@ -54,45 +55,51 @@ class BookListItem extends React.Component {
   }
 
   render() {
-    const { title, author, genre, started, finished } = this.props;
+    const { id, title, author, genre, started, finished } = this.props;
+
     return (
-      <View style={styles.container}>
-        <View style={styles.infoContainer}>
-          <View style={[
-            styles.genreCard,
-            { backgroundColor: genreColor(genre) }
-          ]} />
-          <View>
-            <Text style={styles.title}>
-              {title}
-            </Text>
-            <Text style={styles.author}>
-              by {author}
-            </Text>
-            <Text style={styles.info}>
-              {moment(started).format('MMM DD, YYYY')}
-              {' - '}
-              {finished && moment(finished).format('MMM DD, YYYY')}
-            </Text>
+      <Link
+        to='Book'
+        params={{ id }}
+      >
+        <View style={styles.container}>
+          <View style={styles.infoContainer}>
+            <View style={[
+              styles.genreCard,
+              { backgroundColor: genreColor(genre) }
+            ]} />
+            <View>
+              <Text style={styles.title}>
+                {title}
+              </Text>
+              <Text style={styles.author}>
+                by {author}
+              </Text>
+              <Text style={styles.info}>
+                {moment(started).format('MMM DD, YYYY')}
+                {' - '}
+                {finished && moment(finished).format('MMM DD, YYYY')}
+              </Text>
+            </View>
+          </View>
+          <View style={styles.controls}>
+            {
+              finished
+                ? null
+                : <ControlButton
+                    onPress={this.finishBook}
+                    text='Finish'
+                    icon='check'
+                  />
+            }
+            <ControlButton
+              onPress={this.removeBook}
+              text='Remove'
+              icon='trash'
+            />
           </View>
         </View>
-        <View style={styles.controls}>
-          {
-            finished
-              ? null
-              : <ControlButton
-                  onPress={this.finishBook}
-                  text='Finish'
-                  icon='check'
-                />
-          }
-          <ControlButton
-            onPress={this.removeBook}
-            text='Remove'
-            icon='trash'
-          />
-        </View>
-      </View>
+      </Link>
     );
   }
 }

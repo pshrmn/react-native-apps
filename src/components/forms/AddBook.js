@@ -68,7 +68,7 @@ class AddBook extends React.Component {
 
     if (validTitle && validAuthor) {
       this.props.addBook({
-        id: Math.floor(Math.random() * 10000),
+        id: Math.random().toString(36).slice(2,8),
         title: this.state.title,
         author: this.state.author,
         started: new Date(),
