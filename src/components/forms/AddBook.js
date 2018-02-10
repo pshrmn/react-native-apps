@@ -6,22 +6,55 @@ import { connect } from 'react-redux';
 import { addBook } from '../../store/actions';
 import genres from '../../constants/genres';
 
-const Error = ({ error }) => (
-  error
-    ? <View style={styles.error}>
-        <Text style={styles.errorText}>{error}</Text>
-      </View>
-    : null
-);
+const Error = ({ errors }) => {
+  const errs = Object.keys(errors)
+    .map(key => errors[key])
+    .filter(e => e !== undefined);
+
+  if (!errs.length) {
+    return null;
+  }
+  return (
+    <View style={styles.error}>
+      {
+        errs.map((e,i) => (
+          <Text
+            key={i}
+            style={styles.errorText}
+          >
+            {e}
+          </Text>
+        ))
+      }
+    </View>
+  );
+};
 
 class AddBook extends React.Component {
 
-  state = { title: '', genre: 'fiction', error: undefined };
+  state = { title: '', author: '', genre: 'fiction', errors: {} };
 
   handleTitle = (title) => {
-    this.setState({
-      title,
-      error: title !== '' ? undefined: "You must provide a book title"
+    this.setState(prevState => {
+      let errors = {
+        ...prevState.errors,
+        title: title !== ''
+          ? undefined
+          : "You must provide a book title"
+      };
+      return { title, errors };
+    });
+  }
+
+  handleAuthor = author => {
+    this.setState(prevState => {
+      let errors = {
+        ...prevState.errors,
+        author: author !== ''
+          ? undefined
+          : "You must provide an author"
+      };
+      return { author, errors };
     });
   }
 
@@ -30,32 +63,45 @@ class AddBook extends React.Component {
   }
 
   verifyAndSubmitData() {
-    if (this.state.title !== '') {
+    const validAuthor = this.state.author !== '';
+    const validTitle = this.state.title !== '';
+
+    if (validTitle && validAuthor) {
       this.props.addBook({
         id: Math.floor(Math.random() * 10000),
         title: this.state.title,
+        author: this.state.author,
         started: new Date(),
         finished: undefined
       });
       return true;
     }
-    this.setState({
-      error: "You must provide a book title"
-    })
+    const errors = {};
+    if (!validAuthor) {
+      errors.author = "You must provide an author";
+    }
+    if (!validTitle) {
+      errors.title = "You must provide a book title";
+    }
+    this.setState({ errors });
     return false;
   }
 
   render() {
     const { router } = this.props;
-    const { title, genre, error } = this.state;
+    const { title, author, genre, errors } = this.state;
     return  (
       <View>
-        <Error error={error} />
+        <Error errors={errors} />
         <View style={styles.container}>
           <Text style={styles.header}>Start Reading A Book</Text>
           <View>
             <Text>Title</Text>
             <TextInput value={title} onChangeText={this.handleTitle} />
+          </View>
+          <View>
+            <Text>Author</Text>
+            <TextInput value={author} onChangeText={this.handleAuthor} />
           </View>
           <View>
             <Text>Genre</Text>
