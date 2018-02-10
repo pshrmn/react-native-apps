@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import ScreenWithBackButton from '../components/ScreenWithBackButton';
 import BookListItem from '../components/BookListItem';
 import ResetReadingList from '../components/ResetReadingList';
+import ListSeparator from '../components/ListSeparator';
 
 const ReadingList = ({ router, books }) => (
   <ScreenWithBackButton router={router}>
@@ -21,6 +22,7 @@ const ReadingList = ({ router, books }) => (
           <BookListItem {...item} />
         )}
         keyExtractor={item => item.id}
+        ItemSeparatorComponent={ListSeparator}
       />
     </View>
   </ScreenWithBackButton>
