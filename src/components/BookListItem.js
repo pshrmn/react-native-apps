@@ -6,7 +6,7 @@ import { Link } from '@curi/react-native';
 import genres from '../constants/genres';
 
 function genreColor(genre) {
-  const obj = genres.find(g => g.id === genre);
+  const obj = genres.find(g => g.name === genre);
   return obj
     ? obj.color
     : '#ccc';
@@ -15,7 +15,6 @@ function genreColor(genre) {
 class BookListItem extends React.Component {
   render() {
     const { id, title, author, genre, started, finished } = this.props;
-
     return (
       <Link
         to='Book'

@@ -82,6 +82,7 @@ class AddBook extends React.Component {
         id: Math.random().toString(36).slice(2,8),
         title: this.state.title,
         author: this.state.author,
+        genre: this.state.genre,
         started: this.state.started,
         finished: undefined
       });
