@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 import { addBook } from '../../store/actions';
 import genres from '../../constants/genres';
+import DatePicker from './Date';
 
 const Error = ({ errors }) => {
   const errs = Object.keys(errors)
@@ -32,7 +33,13 @@ const Error = ({ errors }) => {
 
 class AddBook extends React.Component {
 
-  state = { title: '', author: '', genre: 'fiction', errors: {} };
+  state = {
+    title: '',
+    author: '',
+    genre: 'fiction',
+    started: new Date(),
+    errors: {}
+  };
 
   handleTitle = (title) => {
     this.setState(prevState => {
@@ -62,6 +69,10 @@ class AddBook extends React.Component {
     this.setState({ genre });
   }
 
+  handleStarted = started => {
+    this.setState({ started });
+  }
+
   verifyAndSubmitData() {
     const validAuthor = this.state.author !== '';
     const validTitle = this.state.title !== '';
@@ -71,7 +82,7 @@ class AddBook extends React.Component {
         id: Math.random().toString(36).slice(2,8),
         title: this.state.title,
         author: this.state.author,
-        started: new Date(),
+        started: this.state.started,
         finished: undefined
       });
       return true;
@@ -115,6 +126,10 @@ class AddBook extends React.Component {
                 ))
               }
             </Picker>
+          </View>
+          <View>
+            <Text>Date Started</Text>
+            <DatePicker date={this.state.started} update={this.handleStarted} />
           </View>
           <Link
             to="Reading List"
