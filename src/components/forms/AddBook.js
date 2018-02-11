@@ -31,6 +31,15 @@ const Error = ({ errors }) => {
   );
 };
 
+const InputSection = ({ title, children }) => (
+  <View>
+    <Text style={styles.inputTitle}>
+      {title}
+    </Text>
+    {children}
+  </View>
+)
+
 class AddBook extends React.Component {
 
   state = {
@@ -103,48 +112,60 @@ class AddBook extends React.Component {
     const { router } = this.props;
     const { title, author, genre, errors } = this.state;
     return  (
-      <View>
+      <View style={styles.all}>
         <Error errors={errors} />
         <View style={styles.container}>
           <View>
-            <Text>Title</Text>
-            <TextInput value={title} onChangeText={this.handleTitle} />
+            <InputSection title='Title'>
+              <TextInput
+                value={title}
+                onChangeText={this.handleTitle}
+                style={styles.inputText}
+              />
+            </InputSection>
+            <InputSection title='Author'>
+              <TextInput
+                value={author}
+                onChangeText={this.handleAuthor}
+                style={styles.inputText}
+              />
+            </InputSection>
+            <InputSection title='Genre'>
+              <Picker
+                selectedValue={genre}
+                onValueChange={this.handleGenre}
+                itemStyle={styles.picker}
+              >
+                {
+                  genres.map(g => (
+                    <Picker.Item
+                      key={g.name}
+                      label={g.name}
+                      value={g.name}
+                    />
+                  ))
+                }
+              </Picker>
+            </InputSection>
+            <InputSection title='Date Started'>
+              <DatePicker date={this.state.started} update={this.handleStarted} />
+            </InputSection>
           </View>
           <View>
-            <Text>Author</Text>
-            <TextInput value={author} onChangeText={this.handleAuthor} />
+            <Link
+              to="Reading List"
+              style={styles.button}
+              method="replace"
+              onPress={event => {
+                const ok = this.verifyAndSubmitData();
+                if (!ok) {
+                  event.preventDefault();
+                }
+              }}
+            >
+              <Text style={styles.buttonText}>Start Book</Text>
+            </Link>
           </View>
-          <View>
-            <Text>Genre</Text>
-            <Picker selectedValue={genre} onValueChange={this.handleGenre}>
-              {
-                genres.map(g => (
-                  <Picker.Item
-                    key={g.name}
-                    label={g.name}
-                    value={g.name}
-                  />
-                ))
-              }
-            </Picker>
-          </View>
-          <View>
-            <Text>Date Started</Text>
-            <DatePicker date={this.state.started} update={this.handleStarted} />
-          </View>
-          <Link
-            to="Reading List"
-            style={styles.button}
-            method="replace"
-            onPress={event => {
-              const ok = this.verifyAndSubmitData();
-              if (!ok) {
-                event.preventDefault();
-              }
-            }}
-          >
-            <Text style={styles.buttonText}>Start Book</Text>
-          </Link>
         </View>
       </View>
     );
@@ -152,8 +173,13 @@ class AddBook extends React.Component {
 } 
 
 const styles = StyleSheet.create({
+  all: {
+    flex: 1
+  },
   container: {
-    padding: 10
+    padding: 10,
+    flex: 2,
+    justifyContent: 'space-between'
   },
   error: {
     backgroundColor: '#f00',
@@ -166,13 +192,21 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: '#222233',
     padding: 5,
-    borderRadius: 5,
-    alignSelf: 'flex-start'
+    borderRadius: 5
   },
   buttonText: {
     fontSize: 20,
     color: '#fff',
     textAlign: 'center'
+  },
+  inputTitle: {
+    fontSize: 20
+  },
+  inputText: {
+    fontSize: 20
+  },
+  picker: {
+    fontSize: 20
   }
 });
 

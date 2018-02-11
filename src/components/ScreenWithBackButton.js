@@ -8,9 +8,9 @@ const ScreenWithBackButton = ({
   headline,
   children
 }) => (
-  <View>
+  <View style={styles.screen}>
     <View style={styles.header}>
-      <View style={[styles.headerSection, styles.left]}>
+      <View style={styles.left}>
         <TouchableHighlight
           onPress={() => {
             router.history.go(-1);
@@ -22,10 +22,10 @@ const ScreenWithBackButton = ({
           </View>
         </TouchableHighlight>
       </View>
-      <View style={[styles.headerSection, styles.center]}>
+      <View style={styles.center}>
         {headline && <Text style={styles.headlineText}>{headline}</Text>}
       </View>
-      <View style={[styles.headerSection, styles.right]}>
+      <View style={styles.right}>
       </View>
     </View>
     <View style={styles.content}>
@@ -35,23 +35,23 @@ const ScreenWithBackButton = ({
 );
 
 const styles = StyleSheet.create({
+  screen: {
+    flex: 1
+  },
   header: {
     backgroundColor: '#222233',
     padding: 5,
     flexDirection: 'row',
     alignItems: 'flex-end'
   },
-  headerSection: {
+  right: {
     flex: 1
   },
-  right: {
-
-  },
   center: {
-
+    flex: 2
   },
   left: {
-
+    flex: 1
   },
   backView: {
     flexDirection: 'row',
@@ -62,7 +62,8 @@ const styles = StyleSheet.create({
     color: '#fff'
   },
   content: {
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
+    flex: 2
   },
   icon: {
     fontSize: 40,
