@@ -6,7 +6,7 @@ import ScreenWithBackButton from '../components/ScreenWithBackButton';
 import RemoveBookButton from '../components/buttons/RemoveBookButton';
 import FinishBookButton from '../components/buttons/FinishBookButton';
 
-const Book = ({ router, book }) => (
+const Book = ({ router, book = {}}) => (
   <ScreenWithBackButton router={router}>
     <View>
       <Text style={styles.title}>

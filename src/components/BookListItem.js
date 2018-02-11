@@ -13,11 +13,6 @@ function genreColor(genre) {
 }
 
 class BookListItem extends React.Component {
-  
-  finishBook = () => {
-    this.props.finishBook(this.props.id);
-  }
-
   render() {
     const { id, title, author, genre, started, finished } = this.props;
 
