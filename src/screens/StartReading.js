@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, TextInput, Picker, StyleSheet } from 'react-native';
 import { Link } from '@curi/react-native';
 
-import ScreenWithBackButton from '../components/ScreenWithBackButton';
+import { ScreenWithBackButton } from '../components/screens';
 import AddBook from '../components/forms/AddBook';
 
 const StartReading = ({ router }) => (

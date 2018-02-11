@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
-import ScreenWithBackButton from '../components/ScreenWithBackButton';
+import { ScreenWithBackButton } from '../components/screens';
 import RemoveBookButton from '../components/buttons/RemoveBookButton';
 import FinishBookButton from '../components/buttons/FinishBookButton';
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { View, FlatList, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
-import ScreenWithBackButton from '../components/ScreenWithBackButton';
+import { ScreenWithBackButton } from '../components/screens';
 import BookListItem from '../components/BookListItem';
 import ResetReadingList from '../components/buttons/ResetReadingList';
 import ListSeparator from '../components/ListSeparator';
