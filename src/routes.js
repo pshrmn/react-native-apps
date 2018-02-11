@@ -1,7 +1,7 @@
-import Home from './screens/Home';
-import StartReading from './screens/StartReading';
-import ReadingList from './screens/ReadingList';
-import Book from './screens/Book';
+import Home from './route-components/Home';
+import StartReading from './route-components/StartReading';
+import ReadingList from './route-components/ReadingList';
+import Book from './route-components/Book';
 
 export default [
   {
