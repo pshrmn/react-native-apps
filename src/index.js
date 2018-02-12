@@ -14,13 +14,16 @@ import {
 import color from 'color';
 
 import ColorScreen from './screens/Color';
+import Swiper from './screens/Swiper';
 import randomColor from './utility/randomColor';
 
 type Props = {};
 class App extends Component<Props> {
   render() {
     return (
-      <ColorScreen color={randomColor()} />
+      <Swiper>
+        <ColorScreen color={randomColor()} />
+      </Swiper>
     );
   }
 }
