@@ -19,6 +19,7 @@ class Swiper extends React.Component<Props> {
     super(props);
 
     this.pan = new Animated.Value(0);
+    this.opacity = new Animated.Value(1);
 
     this.responder = PanResponder.create({
       onStartShouldSetPanResponder: () => true,
@@ -26,9 +27,9 @@ class Swiper extends React.Component<Props> {
         this.pan.setValue(gesture.dx);
       },
       onPanResponderStart: () => {
-        if (this.leavingAnimation) {
-          this.leavingAnimation.stop();
-        }
+        Animated.timing(this.opacity, {
+          toValue: 0
+        }).start();
       },
       onPanResponderRelease: (e, gesture) => {
         const { dx, vx } = gesture;
@@ -44,11 +45,12 @@ class Swiper extends React.Component<Props> {
           !(velocityDirection !== direction && velocity > 0.5);
         if (isLeaving) {
           // animate off the screen, then swap colors
-          this.leavingAnimation = Animated.timing(this.pan, {
+          Animated.timing(this.pan, {
             toValue: direction * width
           }).start(() => {
             this.props.onLeave();
             this.pan.setValue(0);
+            this.opacity.setValue(1);
           });
         } else {
           Animated.sequence([
@@ -57,13 +59,18 @@ class Swiper extends React.Component<Props> {
               velocity: vx,
               deceleration: 0.99
             }),
-            // move back
-            Animated.timing(this.pan, {
-              toValue: 0,
-              friction: 10
-            }),
+            Animated.parallel([
+              // move back
+              Animated.timing(this.pan, {
+                toValue: 0,
+                friction: 10
+              }),
+              Animated.timing(this.opacity, {
+                toValue: 1
+              })
+            ])
           ]).start();
-
+          
         }
       }
     })
@@ -75,6 +82,9 @@ class Swiper extends React.Component<Props> {
         { translateX: this.pan }
       ]
     };
+    const opacityStyle = {
+      opacity: this.opacity
+    };
     return (
       <View
         {...this.responder.panHandlers}
@@ -83,7 +93,7 @@ class Swiper extends React.Component<Props> {
         <Animated.View
           style={[styles.foreground, animatedStyle]}
         >
-          {this.props.children}
+          {React.cloneElement(this.props.children, { opacityStyle })}
         </Animated.View>
       </View>
     );

@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Animated, Text, StyleSheet } from 'react-native';
 
 type Props = {
   color: string,
+  opacityStyle: object
 };
 
 const Color = (props:Props) => (
@@ -10,9 +11,12 @@ const Color = (props:Props) => (
     styles.color,
     { backgroundColor: props.color }
   ]}>
-    <View style={styles.textContainer}>
+    <Animated.View style={[
+      styles.textContainer,
+      props.opacityStyle
+    ]}>
       <Text style={styles.text}>{props.color}</Text>
-    </View>
+    </Animated.View>
   </View>
 );
 
