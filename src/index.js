@@ -21,26 +21,29 @@ type Props = {};
 class App extends Component<Props> {
 
   state = {
-    colors: [
-      randomColor(),
-      randomColor()
-    ]
+    foregroundColor: randomColor(),
+    backgroundColor: randomColor()
   }
 
   handleSwipe = () => {
     this.setState((prevState) => {
-      const newColors = [
-        ...prevState.colors.slice(1),
-        randomColor()
-      ];
       return {
-        colors: newColors
+        foregroundColor: prevState.backgroundColor,
+        backgroundColor: randomColor()
       };
-    })
+    });
+  }
+
+  updateColor = newColor => {
+    this.setState(() => {
+      return {
+        foregroundColor: newColor,
+      };
+    });
   }
 
   render() {
-    const [foregroundColor, backgroundColor] = this.state.colors;
+    const { foregroundColor, backgroundColor } = this.state;
     const foreground = <ColorScreen color={foregroundColor} />;
     const background = <ColorScreen color={backgroundColor} />;
 
