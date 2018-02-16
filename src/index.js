@@ -19,11 +19,37 @@ import randomColor from './utility/randomColor';
 
 type Props = {};
 class App extends Component<Props> {
+
+  state = {
+    colors: [
+      randomColor(),
+      randomColor()
+    ]
+  }
+
+  handleSwipe = () => {
+    this.setState((prevState) => {
+      const newColors = [
+        ...prevState.colors.slice(1),
+        randomColor()
+      ];
+      return {
+        colors: newColors
+      };
+    })
+  }
+
   render() {
+    const [foregroundColor, backgroundColor] = this.state.colors;
+    const foreground = <ColorScreen color={foregroundColor} />;
+    const background = <ColorScreen color={backgroundColor} />;
+
     return (
-      <Swiper>
-        <ColorScreen color={randomColor()} />
-      </Swiper>
+      <Swiper
+        onLeave={this.handleSwipe}
+        foreground={foreground}
+        background={background}
+      />
     );
   }
 }
