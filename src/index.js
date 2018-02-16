@@ -92,14 +92,6 @@ class Swiper extends React.Component<Props> {
     });
   }
 
-  updateColor = newColor => {
-    this.setState(() => {
-      return {
-        foregroundColor: newColor,
-      };
-    });
-  }
-
   render() {
     const animatedStyle = {
       transform: [
@@ -125,7 +117,6 @@ class Swiper extends React.Component<Props> {
         >
           <ColorScreen
             color={foregroundColor}
-            update={this.updateColor}
             opacityStyle={opacityStyle}
           />
         </Animated.View>
