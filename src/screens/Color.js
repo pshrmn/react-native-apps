@@ -1,36 +1,89 @@
 import React from 'react';
-import { View, Animated, Text, StyleSheet } from 'react-native';
+import { View, Animated, Text, Slider, StyleSheet } from 'react-native';
+import color from 'color';
 
 type Props = {
   color: string,
   opacityStyle: object
 };
 
-const Color = (props:Props) => (
-  <View style={[
-    styles.color,
-    { backgroundColor: props.color }
-  ]}>
-    <Animated.View style={[
-      styles.textContainer,
-      props.opacityStyle
-    ]}>
-      <Text style={styles.text}>{props.color}</Text>
-    </Animated.View>
-  </View>
-);
+class Color extends React.Component<Props> {
+  constructor(props) {
+    super(props);
+
+    const originalColor = color(this.props.color);
+
+    this.state = {
+      color: originalColor,
+      saturation: originalColor.saturationl()
+    };
+  }
+
+  changeSaturation = saturation => {
+    this.setState({ saturation });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const newColor = color(nextProps.color);
+    this.setState({
+      color: newColor,
+      saturation: newColor.saturationl()
+    });
+  }
+
+  render() {
+    const color = this.state.color.saturationl(this.state.saturation).rgb().string();
+    return (
+      <View style={[
+        styles.color,
+        { backgroundColor: color }
+      ]}>
+        <View style={styles.innerContent}>
+          <View style={styles.textContainer}>
+            <Text style={styles.text}>{color}</Text>
+          </View>
+          <Animated.View style={[
+            styles.controls,
+            this.props.opacityStyle
+          ]}>
+            <Slider
+              style={styles.slider}
+              minimumValue={0}
+              maximumValue={100}
+              value={this.state.saturation}
+              onValueChange={this.changeSaturation}
+            />
+            <Text style={styles.controlText}>Saturation: {this.state.saturation}</Text>
+          </Animated.View>
+        </View>
+      </View>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   color: {
     flex: 1,
   },
-  textContainer: {
+  innerContent: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
   },
+  textContainer: {},
   text: {
     fontSize: 50
+  },
+  controls: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  controlText: {
+    fontSize: 30
+  },
+  slider: {
+    width: 500,
+    paddingVertical: 10
   }
 });
 
