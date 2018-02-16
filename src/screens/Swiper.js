@@ -75,19 +75,15 @@ class Swiper extends React.Component<Props> {
         { translateX: this.pan }
       ]
     };
-    const { foreground, background } = this.props;
     return (
       <View
         {...this.responder.panHandlers}
-        style={[styles.container]}
+        style={[styles.container, this.props.style]}
       >
-        <View style={[styles.background]}>
-          {background}
-        </View>
         <Animated.View
           style={[styles.foreground, animatedStyle]}
         >
-          {foreground}
+          {this.props.children}
         </Animated.View>
       </View>
     );

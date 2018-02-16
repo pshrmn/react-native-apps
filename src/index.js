@@ -44,15 +44,15 @@ class App extends Component<Props> {
 
   render() {
     const { foregroundColor, backgroundColor } = this.state;
-    const foreground = <ColorScreen color={foregroundColor} />;
     const background = <ColorScreen color={backgroundColor} />;
 
     return (
       <Swiper
         onLeave={this.handleSwipe}
-        foreground={foreground}
-        background={background}
-      />
+        style={{ backgroundColor }}
+      >
+        <ColorScreen color={foregroundColor} update={this.updateColor} />
+      </Swiper>
     );
   }
 }
