@@ -1,23 +1,26 @@
 import React from 'react';
-import { View, Animated, Text, Slider, StyleSheet } from 'react-native';
-import color from 'color';
+import { View, Animated, TouchableOpacity, Text, Slider, StyleSheet } from 'react-native';
+import colorFactory from 'color';
 
 type Props = {
   color: string,
   opacityStyle: object
 };
 
+const colorFns = ['hex', 'rgb', 'hsl']
+
 class Color extends React.Component<Props> {
   constructor(props) {
     super(props);
 
-    const originalColor = color(this.props.color);
+    const originalColor = colorFactory(this.props.color);
 
     this.state = {
       color: originalColor,
       hue: originalColor.hue(),
       saturation: originalColor.saturationl(),
-      lightness: originalColor.lightness()
+      lightness: originalColor.lightness(),
+      colorFnIndex: 0
     };
   }
 
@@ -33,8 +36,17 @@ class Color extends React.Component<Props> {
     this.setState({ lightness });
   }
 
+  swapColorFnIndex = () => {
+    this.setState(prevState => {
+      const newIndex = (prevState.colorFnIndex+1) % colorFns.length;
+      return {
+        colorFnIndex: newIndex
+      };
+    })
+  }
+
   componentWillReceiveProps(nextProps) {
-    const newColor = color(nextProps.color);
+    const newColor = colorFactory(nextProps.color);
     this.setState({
       color: newColor,
       hue: newColor.hue(),
@@ -48,7 +60,10 @@ class Color extends React.Component<Props> {
       .hue(this.state.hue)
       .saturationl(this.state.saturation)
       .lightness(this.state.lightness)
-    const colorString = color.rgb().string();
+    let colorString = color[colorFns[this.state.colorFnIndex]]();
+    if (colorString instanceof colorFactory) {
+      colorString = colorString.round().string()
+    }
     const textColor = color.isDark() ? '#fff' : '#000';
     const trackBackground = color.isDark() ? '#ccc' : undefined;
     return (
@@ -58,12 +73,14 @@ class Color extends React.Component<Props> {
       ]}>
         <View style={styles.innerContent}>
           <View style={styles.textContainer}>
-            <Text
-              style={[
-                styles.text,
-                { color: textColor }
-              ]}
-            >{colorString}</Text>
+            <TouchableOpacity onPress={this.swapColorFnIndex}>
+              <Text
+                style={[
+                  styles.text,
+                  { color: textColor }
+                ]}
+              >{colorString}</Text>
+            </TouchableOpacity>
           </View>
           <Animated.View style={[
             styles.controls,
