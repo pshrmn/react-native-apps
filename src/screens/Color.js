@@ -1,6 +1,8 @@
 import React from 'react';
-import { View, Animated, TouchableOpacity, Text, Slider, StyleSheet } from 'react-native';
+import { View, Animated, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import colorFactory from 'color';
+
+import Slider from '../components/Slider';
 
 type Props = {
   color: string,
@@ -86,66 +88,30 @@ class Color extends React.Component<Props> {
             styles.controls,
             this.props.opacityStyle
           ]}>
-            <View>
-              <Text
-                style={[
-                  styles.controlText,
-                  { color: textColor }
-                ]}
-              >
-                Hue
-              </Text>
-              <Slider
-                style={styles.slider}
-                minimumValue={0}
-                maximumValue={360}
-                minimumTrackTintColor={textColor}
-                maximumTrackTintColor={trackBackground}
-                thumbTintColor={textColor}
-                value={this.state.hue}
-                onValueChange={this.changeHue}
-              />
-            </View>
-            <View>
-              <Text
-                style={[
-                  styles.controlText,
-                  { color: textColor }
-                ]}
-              >
-                Saturation
-              </Text>
-              <Slider
-                style={styles.slider}
-                minimumValue={0}
-                maximumValue={100}
-                minimumTrackTintColor={textColor}
-                maximumTrackTintColor={trackBackground}
-                thumbTintColor={textColor}
-                value={this.state.saturation}
-                onValueChange={this.changeSaturation}
-              />
-            </View>
-            <View>
-              <Text
-                style={[
-                  styles.controlText,
-                  { color: textColor }
-                ]}
-              >
-                Lightness
-              </Text>
-              <Slider
-                style={styles.slider}
-                minimumValue={0}
-                maximumValue={100}
-                minimumTrackTintColor={textColor}
-                maximumTrackTintColor={trackBackground}
-                thumbTintColor={textColor}
-                value={this.state.lightness}
-                onValueChange={this.changeLightness}
-              />
-            </View>
+            <Slider
+              type='Hue'
+              value={this.state.hue}
+              range={[0, 360]}
+              primaryColor={textColor}
+              secondaryColor={trackBackground}
+              change={this.changeHue}
+            />
+            <Slider
+              type='Saturation'
+              value={this.state.saturation}
+              range={[0, 100]}
+              primaryColor={textColor}
+              secondaryColor={trackBackground}
+              change={this.changeSaturation}
+            />
+            <Slider
+              type='Lightness'
+              value={this.state.lightness}
+              range={[0, 100]}
+              primaryColor={textColor}
+              secondaryColor={trackBackground}
+              change={this.changeLightness}
+            />
           </Animated.View>
         </View>
       </View>
@@ -169,13 +135,6 @@ const styles = StyleSheet.create({
   controls: {
     justifyContent: 'center',
     alignItems: 'center'
-  },
-  controlText: {
-    fontSize: 30
-  },
-  slider: {
-    width: 400,
-    paddingVertical: 10
   }
 });
 
