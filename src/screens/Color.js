@@ -33,6 +33,7 @@ class Color extends React.Component<Props> {
 
   render() {
     const color = this.state.color.saturationl(this.state.saturation).rgb().string();
+    const textColor = this.state.color.isDark() ? '#fff' : '#000';
     return (
       <View style={[
         styles.color,
@@ -40,7 +41,12 @@ class Color extends React.Component<Props> {
       ]}>
         <View style={styles.innerContent}>
           <View style={styles.textContainer}>
-            <Text style={styles.text}>{color}</Text>
+            <Text
+              style={[
+                styles.text,
+                { color: textColor }
+              ]}
+            >{color}</Text>
           </View>
           <Animated.View style={[
             styles.controls,
@@ -53,7 +59,12 @@ class Color extends React.Component<Props> {
               value={this.state.saturation}
               onValueChange={this.changeSaturation}
             />
-            <Text style={styles.controlText}>Saturation: {this.state.saturation}</Text>
+            <Text
+              style={[
+                styles.controlText,
+                { color: textColor }
+              ]}
+            >Saturation: {this.state.saturation}</Text>
           </Animated.View>
         </View>
       </View>
