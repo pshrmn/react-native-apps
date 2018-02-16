@@ -34,6 +34,7 @@ class Color extends React.Component<Props> {
   render() {
     const color = this.state.color.saturationl(this.state.saturation).rgb().string();
     const textColor = this.state.color.isDark() ? '#fff' : '#000';
+    const trackBackground = this.state.color.isDark() ? '#ccc' : undefined;
     return (
       <View style={[
         styles.color,
@@ -52,19 +53,24 @@ class Color extends React.Component<Props> {
             styles.controls,
             this.props.opacityStyle
           ]}>
-            <Slider
-              style={styles.slider}
-              minimumValue={0}
-              maximumValue={100}
-              value={this.state.saturation}
-              onValueChange={this.changeSaturation}
-            />
             <Text
               style={[
                 styles.controlText,
                 { color: textColor }
               ]}
-            >Saturation: {this.state.saturation}</Text>
+            >
+              Saturation
+            </Text>
+            <Slider
+              style={styles.slider}
+              minimumValue={0}
+              maximumValue={100}
+              minimumTrackTintColor={textColor}
+              maximumTrackTintColor={trackBackground}
+              thumbTintColor={textColor}
+              value={this.state.saturation}
+              onValueChange={this.changeSaturation}
+            />
           </Animated.View>
         </View>
       </View>
@@ -93,7 +99,7 @@ const styles = StyleSheet.create({
     fontSize: 30
   },
   slider: {
-    width: 500,
+    width: 400,
     paddingVertical: 10
   }
 });
