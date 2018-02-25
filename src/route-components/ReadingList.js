@@ -6,6 +6,7 @@ import { Link } from '@curi/react-native';
 import { ScreenWithBackButton } from '../components/screens';
 import BookListItem from '../components/BookListItem';
 import ResetReadingList from '../components/buttons/ResetReadingList';
+import StartABook from '../components/buttons/StartABook';
 import ListSeparator from '../components/ListSeparator';
 
 const ReadingList = ({ router, books }) => (
@@ -15,9 +16,7 @@ const ReadingList = ({ router, books }) => (
   >
     <View style={styles.list}>
       <View style={styles.controls}>
-        <Link to='Start Reading' style={styles.button}>
-          <Text style={styles.buttonText}>Start A Book</Text>
-        </Link>
+        <StartABook />
         <ResetReadingList />
       </View>
       <FlatList
@@ -38,15 +37,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end'
   },
   list: {
-  },
-  button: {
-    backgroundColor: '#009166',
-    padding: 5
-  },
-  buttonText: {
-    fontSize: 20,
-    color: '#fff',
-    textAlign: 'center'
   }
 });
 
