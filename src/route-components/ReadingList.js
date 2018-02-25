@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, FlatList, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
+import { Link } from '@curi/react-native';
 
 import { ScreenWithBackButton } from '../components/screens';
 import BookListItem from '../components/BookListItem';
@@ -14,6 +15,9 @@ const ReadingList = ({ router, books }) => (
   >
     <View style={styles.list}>
       <View style={styles.controls}>
+        <Link to='Start Reading' style={styles.button}>
+          <Text style={styles.buttonText}>Start A Book</Text>
+        </Link>
         <ResetReadingList />
       </View>
       <FlatList
@@ -30,9 +34,19 @@ const ReadingList = ({ router, books }) => (
 
 const styles = StyleSheet.create({
   controls: {
-    alignItems: 'flex-end'
+    flexDirection: 'row',
+    justifyContent: 'flex-end'
   },
   list: {
+  },
+  button: {
+    backgroundColor: '#009166',
+    padding: 5
+  },
+  buttonText: {
+    fontSize: 20,
+    color: '#fff',
+    textAlign: 'center'
   }
 });
 

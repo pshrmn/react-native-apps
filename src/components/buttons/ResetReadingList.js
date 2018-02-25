@@ -38,7 +38,7 @@ class ResetReadingList extends React.Component {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: '#f00',
+    backgroundColor: '#d90000',
     padding: 5
   },
   text: {
