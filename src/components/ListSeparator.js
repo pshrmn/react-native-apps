@@ -8,7 +8,7 @@ const ListSeparator = () => (
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
-    height: StyleSheet.hairlineWidth
+    height: 5
   }
 });
 

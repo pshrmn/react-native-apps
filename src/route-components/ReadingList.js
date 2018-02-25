@@ -19,14 +19,16 @@ const ReadingList = ({ router, books }) => (
         <StartABook />
         <ResetReadingList />
       </View>
-      <FlatList
-        data={books}
-        renderItem={({ item }) => (
-          <BookListItem {...item} />
-        )}
-        keyExtractor={item => item.id}
-        ItemSeparatorComponent={ListSeparator}
-      />
+      <View style={styles.listContainer}>
+        <FlatList
+          data={books}
+          renderItem={({ item }) => (
+            <BookListItem {...item} />
+          )}
+          keyExtractor={item => item.id}
+          ItemSeparatorComponent={ListSeparator}
+        />
+      </View>
     </View>
   </ScreenWithBackButton>
 );
@@ -37,6 +39,11 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end'
   },
   list: {
+    flex: 1
+  },
+  listContainer: {
+    flex: 1,
+    marginTop: 5
   }
 });
 
