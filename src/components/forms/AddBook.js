@@ -153,7 +153,7 @@ class AddBook extends React.Component {
           </View>
           <View>
             <Link
-              to="Reading List"
+              to="Home"
               style={styles.button}
               method="replace"
               onPress={event => {

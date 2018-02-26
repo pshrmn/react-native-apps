@@ -1,6 +1,5 @@
 import Home from './route-components/Home';
 import StartReading from './route-components/StartReading';
-import ReadingList from './route-components/ReadingList';
 import Book from './route-components/Book';
 
 export default [
@@ -19,15 +18,6 @@ export default [
     match: {
       response({ set }) {
         set.body(StartReading);
-      }
-    }
-  },
-  {
-    name: 'Reading List',
-    path: 'reading-list',
-    match: {
-      response({ set }) {
-        set.body(ReadingList);
       }
     }
   },

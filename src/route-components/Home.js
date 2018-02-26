@@ -1,47 +1,64 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, FlatList, Text, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
 import { Link } from '@curi/react-native';
+import { Toolbar, ToolbarContent, ToolbarBackAction, FAB } from 'react-native-paper';
 
-const Home = () => (
+import BookListItem from '../components/BookListItem';
+import ResetReadingList from '../components/buttons/ResetReadingList';
+import StartABook from '../components/buttons/StartABook';
+import ListSeparator from '../components/ListSeparator';
+
+const Home = ({ router, books }) => (
   <View style={styles.container}>
-    <View style={styles.header}>
-      <Text style={styles.headerText}>Reading Tracker</Text>
+    <Toolbar>
+      <ToolbarContent
+        title="Reading Tracker"
+      />
+    </Toolbar>
+    <View style={styles.list}>
+      <View style={styles.listContainer}>
+        <FlatList
+          data={books}
+          renderItem={({ item }) => (
+            <BookListItem {...item} />
+          )}
+          keyExtractor={item => item.id}
+          ItemSeparatorComponent={ListSeparator}
+        />
+      </View>
+      <View
+        style={styles.float}
+      >
+        <StartABook router={router}/>
+        <ResetReadingList />
+      </View>
     </View>
-    <Link to='Start Reading' style={styles.button}>
-      <Text style={styles.buttonText}>Start A Book</Text>
-    </Link>
-    <Link to='Reading List' style={styles.button}>
-      <Text style={styles.buttonText}>Reading List</Text>
-    </Link>
+
   </View>
 );
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#222233',
+    flex: 1
+  },
+  list: {
+    flex: 1
+  },
+  listContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
+    marginTop: 5
   },
-  header: {
-    marginVertical: 25
-  },
-  headerText: {
-    color: '#fff',
-    fontSize: 50
-  },
-  button: {
-    borderWidth: 2,
-    borderColor: '#fff',
-    borderRadius: 15,
-    backgroundColor: '#222233',
-    padding: 10,
-    marginVertical: 5
-  },
-  buttonText: {
-    fontSize: 30,
-    color: '#fff'
+  float: {
+    position: 'absolute',
+    right: 15,
+    bottom: 15,
+    flexDirection: 'row'
   }
 });
 
-export default Home;
+export default connect(
+  state => ({
+    books: state.books
+  })
+)(Home);

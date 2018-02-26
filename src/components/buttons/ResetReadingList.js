@@ -30,7 +30,7 @@ class ResetReadingList extends React.Component {
       <FAB
         icon="remove"
         style={{ marginRight: 5, backgroundColor: '#d90000' }}
-        onPress={this.props.handlePress}
+        onPress={this.handlePress}
       />
     );
   }
