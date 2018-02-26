@@ -1,6 +1,7 @@
 import React from 'react';
-import { TouchableOpacity, Text, StyleSheet, Alert } from 'react-native';
+import { Alert } from 'react-native';
 import { connect } from 'react-redux';
+import { FAB } from 'react-native-paper';
 
 import { clearBooks } from '../../store/actions';
 
@@ -26,27 +27,14 @@ class ResetReadingList extends React.Component {
 
   render() {
     return (
-      <TouchableOpacity
-        style={styles.button}
-        onPress={this.handlePress}
-      >
-        <Text style={styles.text}>Reset Books</Text>
-      </TouchableOpacity>
-    )
+      <FAB
+        icon="remove"
+        style={{ marginRight: 5, backgroundColor: '#d90000' }}
+        onPress={this.props.handlePress}
+      />
+    );
   }
 }
-
-const styles = StyleSheet.create({
-  button: {
-    backgroundColor: '#d90000',
-    padding: 5
-  },
-  text: {
-    fontSize: 20,
-    color: '#fff',
-    textAlign: 'center'
-  }
-})
 
 export default connect(
   null,

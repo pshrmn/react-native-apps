@@ -1,13 +1,21 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
+import { Toolbar, ToolbarContent, ToolbarBackAction } from 'react-native-paper';
 
-import { ScreenWithBackButton } from '../components/screens';
 import RemoveBookButton from '../components/buttons/RemoveBookButton';
 import FinishBookButton from '../components/buttons/FinishBookButton';
 
 const Book = ({ router, book = {}}) => (
-  <ScreenWithBackButton router={router}>
+  <View style={styles.container}>
+    <Toolbar>
+      <ToolbarBackAction
+        dark={true}
+        onPress={() => {
+          router.history.go(-1);
+        }}
+      />
+    </Toolbar>
     <View>
       <Text style={styles.title}>
         {book.title}
@@ -24,10 +32,13 @@ const Book = ({ router, book = {}}) => (
       }
       <RemoveBookButton id={book.id} />
     </View>
-  </ScreenWithBackButton>
+  </View>
 )
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
   title: {
     fontSize: 30
   },

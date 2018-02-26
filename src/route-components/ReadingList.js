@@ -2,23 +2,27 @@ import React from 'react';
 import { View, FlatList, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { Link } from '@curi/react-native';
+import { Toolbar, ToolbarContent, ToolbarBackAction, FAB } from 'react-native-paper';
 
-import { ScreenWithBackButton } from '../components/screens';
 import BookListItem from '../components/BookListItem';
 import ResetReadingList from '../components/buttons/ResetReadingList';
 import StartABook from '../components/buttons/StartABook';
 import ListSeparator from '../components/ListSeparator';
 
 const ReadingList = ({ router, books }) => (
-  <ScreenWithBackButton
-    router={router}
-    headline='Reading List'
-  >
+  <View style={styles.container}>
+    <Toolbar>
+      <ToolbarBackAction
+        dark={true}
+        onPress={() => {
+          router.history.go(-1);
+        }}
+      />
+      <ToolbarContent
+        title="Reading List"
+      />
+    </Toolbar>
     <View style={styles.list}>
-      <View style={styles.controls}>
-        <StartABook />
-        <ResetReadingList />
-      </View>
       <View style={styles.listContainer}>
         <FlatList
           data={books}
@@ -29,14 +33,20 @@ const ReadingList = ({ router, books }) => (
           ItemSeparatorComponent={ListSeparator}
         />
       </View>
+      <View
+        style={styles.float}
+      >
+        <StartABook router={router}/>
+        <ResetReadingList />
+      </View>
     </View>
-  </ScreenWithBackButton>
+
+  </View>
 );
 
 const styles = StyleSheet.create({
-  controls: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end'
+  container: {
+    flex: 1
   },
   list: {
     flex: 1
@@ -44,6 +54,12 @@ const styles = StyleSheet.create({
   listContainer: {
     flex: 1,
     marginTop: 5
+  },
+  float: {
+    position: 'absolute',
+    right: 15,
+    bottom: 15,
+    flexDirection: 'row'
   }
 });
 
