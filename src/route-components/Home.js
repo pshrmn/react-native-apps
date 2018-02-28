@@ -47,7 +47,10 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     flex: 1,
-    marginTop: 5
+    marginTop: 5,
+    backgroundColor: '#eee',
+    paddingVertical: 5,
+    paddingHorizontal: 25
   },
   float: {
     position: 'absolute',
