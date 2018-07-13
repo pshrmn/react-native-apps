@@ -1,0 +1,23 @@
+enum IdeaType {
+  CHARACTER
+  WORLD
+}
+
+type Idea {
+  id: ID! @unique
+  name: String!
+  description: String!
+  type: IdeaType!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  public: Boolean! @default(value: "false")
+  creator: User!
+}
+
+type User {
+  id: ID! @unique
+  email: String! @unique
+  password: String!
+  name: String!
+  ideas: [Idea!]!
+}

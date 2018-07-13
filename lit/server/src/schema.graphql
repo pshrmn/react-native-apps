@@ -1,0 +1,27 @@
+# import Idea from "./generated/prisma.graphql"
+
+type Query {
+  ideas: [Idea!]!
+  idea(id: ID!): Idea
+  me: User
+}
+
+type Mutation {
+  signup(email: String!, password: String!, name: String!): AuthPayload!
+  login(email: String!, password: String!): AuthPayload!
+  createIdea(name: String!, description: String!, public: Boolean = false): Idea!
+  togglePublic(id: ID!): Idea!
+  deleteIdea(id: ID!): Idea!
+}
+
+type AuthPayload {
+  token: String!
+  user: User!
+}
+
+type User {
+  id: ID!
+  email: String!
+  name: String!
+  ideas: [Idea!]!
+}
