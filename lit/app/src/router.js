@@ -1,5 +1,5 @@
 import InMemory from "@hickory/in-memory";
-import curi from "@curi/router";
+import { curi } from "@curi/router";
 
 import routes from "./routes";
 

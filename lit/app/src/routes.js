@@ -7,11 +7,11 @@ export default [
   {
     name: "Home",
     path: "",
-    on: {
-      every: isLoggedIn
+    match: {
+      isLoggedIn
     },
     response({ resolved }) {
-      if (!resolved.every) {
+      if (!resolved.isLoggedIn) {
         return {
           redirectTo: {
             name: "Sign In"
@@ -26,11 +26,11 @@ export default [
   {
     name: "Sign In",
     path: "sign-in",
-    on: {
-      every: isLoggedIn
+    match: {
+      isLoggedIn
     },
     response({ resolved }) {
-      if (resolved.every) {
+      if (resolved.isLoggedIn) {
         return {
           redirectTo: {
             name: "Home"
