@@ -6,8 +6,6 @@ import router from "./router";
 import apolloClient from "./apollo";
 
 import Loading from "./components/Loading";
-import { logout } from "./auth";
-logout();
 
 export default () => (
   <ApolloProvider client={apolloClient}>

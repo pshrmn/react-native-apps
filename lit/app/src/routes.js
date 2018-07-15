@@ -2,6 +2,7 @@ import { isLoggedIn } from "./auth";
 
 import Home from "./screens/Home";
 import SignIn from "./screens/SignIn";
+import Profile from "./screens/Profile";
 
 export default [
   {
@@ -39,6 +40,25 @@ export default [
       }
       return {
         body: SignIn
+      };
+    }
+  },
+  {
+    name: "Profile",
+    path: "profile",
+    match: {
+      isLoggedIn
+    },
+    response({ resolved }) {
+      if (!resolved.isLoggedIn) {
+        return {
+          redirectTo: {
+            name: "Sign In"
+          }
+        };
+      }
+      return {
+        body: Profile
       };
     }
   }

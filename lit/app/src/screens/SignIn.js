@@ -22,8 +22,6 @@ export default class SignIn extends React.Component {
   }
 
   render() {
-    console.log("[location]", this.props.response.location);
-    console.log("[state]", this.state);
     return (
       <View>
         {this.state.signup
