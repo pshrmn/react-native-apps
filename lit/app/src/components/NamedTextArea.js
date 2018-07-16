@@ -3,7 +3,9 @@ import { View, TextInput, Text, StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   textInput: {
-    width: 200
+    width: 200,
+    height: 200,
+    textAlignVertical: "top"
   }
 })
 
@@ -26,6 +28,8 @@ export default class NamedTextField extends React.PureComponent {
           value={value}
           onChangeText={this.changeText}
           autoCapitalize="none"
+          editable={true}
+          multiline={true}
           {...rest}
         />
       </View>

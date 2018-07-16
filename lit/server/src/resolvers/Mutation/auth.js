@@ -2,11 +2,14 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
 const auth = {
-  async signup(parent, args, ctx, info) {
-    const password = await bcrypt.hash(args.password, 10)
+  async signup(parent, { password, ...rest }, ctx, info) {
+    console.log('[signup]', info);
     try {
       const user = await ctx.db.mutation.createUser({
-        data: { ...args, password },
+        data: {
+          ...rest,
+          password: await bcrypt.hash(password, 10)
+        },
       });
       return {
         payload: {

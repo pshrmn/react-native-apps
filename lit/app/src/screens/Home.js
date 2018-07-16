@@ -19,6 +19,9 @@ const styles = StyleSheet.create({
 export default () => (
   <View style={styles.container}>
     <Text style={styles.homeText}>Lit.</Text>
+    <Link to="New Idea">
+      <Text>New Idea</Text>
+    </Link>
     <Link to="Profile">
       <Text>Profile</Text>
     </Link>

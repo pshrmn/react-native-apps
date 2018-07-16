@@ -1,8 +1,16 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 
 import SignUpForm from "../components/SignUpForm";
 import LoginForm from "../components/LoginForm";
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center"
+  }
+});
 
 export default class SignIn extends React.Component {
   constructor(props) {
@@ -23,7 +31,7 @@ export default class SignIn extends React.Component {
 
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         {this.state.signup
           ? <SignUpForm router={this.props.router}/>
           : <LoginForm router={this.props.router}/>

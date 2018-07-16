@@ -6,18 +6,7 @@ import Root from "./src";
 export default class App extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Root />
-      </View>
+      <Root />
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

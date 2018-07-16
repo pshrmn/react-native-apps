@@ -21,3 +21,24 @@ export const LOGIN_MUTATION = gql`
     }
   }
 `;
+
+export const CREATE_IDEA_MUTATION = gql`
+  mutation createIdea(
+    $name: String!,
+    $description: String!,
+    $type: IdeaType!,
+    $public: Boolean = false
+  ) {
+    createIdea(
+      name: $name,
+      description: $description,
+      type: $type
+      public: $public
+    ) {
+      idea {
+        id
+      }
+      error
+    }
+  }
+`;

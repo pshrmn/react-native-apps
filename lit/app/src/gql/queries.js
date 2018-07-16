@@ -7,3 +7,14 @@ export const PROFILE_QUERY = gql`
     }
   }
 `;
+
+export const IDEA_QUERY = gql`
+  query idea($id: ID!) {
+    idea(id: $id) {
+      name
+      description
+      type
+      public
+    }
+  }
+`;

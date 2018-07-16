@@ -4,25 +4,48 @@ const IDEA_TYPES_ENUM = ["CHARACTER", "WORLD"];
 
 const idea = {
   async createIdea(parent, { name, description, type, public = false }, ctx, info) {
-    if (IDEA_TYPES_ENUM.indexOf(ype) === -1) {
-      throw new Error(`Invalid idea type: ${type}. Must be one of ${IDEA_TYPES_ENUM}`)
+    if (IDEA_TYPES_ENUM.indexOf(type) === -1) {
+      return {
+        error: `Invalid idea type: ${type}. Must be one of ${IDEA_TYPES_ENUM}`
+      };
     }
 
-    const userId = getUserId(ctx)
-    return ctx.db.mutation.createIdea(
-      {
-        data: {
-          name,
-          description,
-          public,
-          type,
-          creator: {
-            connect: { id: userId },
+    if (name === "") {
+      return {
+        error: `Name cannot be empty`
+      };
+    }
+
+    if (description === "") {
+      return {
+        error: `Description cannot be empty`
+      };
+    }
+
+    try {
+      const userId = getUserId(ctx)
+      const idea = await ctx.db.mutation.createIdea(
+        {
+          data: {
+            name,
+            description,
+            type,
+            public,
+            creator: {
+              connect: { id: userId },
+            },
           },
         },
-      },
-      info
-    )
+        `{
+          id
+        }`
+      );
+      return { idea };
+    } catch (error) {
+      return {
+        error
+      }
+    }
   },
 
   async togglePublic(parent, { id }, ctx, info) {
@@ -39,8 +62,7 @@ const idea = {
       {
         where: { id },
         data: { public: !idea.public },
-      },
-      info,
+      }
     )
   },
 
