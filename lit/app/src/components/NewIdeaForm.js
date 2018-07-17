@@ -1,7 +1,6 @@
 import React from "react";
 import { KeyboardAvoidingView, View, Text, Button, Switch, StyleSheet } from "react-native";
 import { Mutation } from "react-apollo";
-import { Link } from "@curi/react-native";
 
 import NamedTextField from "./NamedTextField";
 import NamedTextArea from "./NamedTextArea";
@@ -50,6 +49,10 @@ class NewIdeaForm extends React.Component {
     }
   }
 
+  cancel = () => {
+    this.props.router.history.go(-1);
+  }
+
   render() {
     return (
       <KeyboardAvoidingView behavior="padding">
@@ -78,6 +81,10 @@ class NewIdeaForm extends React.Component {
           <Button
             title="Save"
             onPress={this.submit}
+          />
+          <Button
+            title="Cancel"
+            onPress={this.cancel}
           />
         </View>
       </KeyboardAvoidingView>

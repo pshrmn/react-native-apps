@@ -620,9 +620,9 @@
     pouchdb-collections "^1.0.1"
     tiny-queue "^0.2.1"
 
-"@hickory/in-memory@^1.0.0-beta.5":
-  version "1.0.0-beta.5"
-  resolved "https://registry.yarnpkg.com/@hickory/in-memory/-/in-memory-1.0.0-beta.5.tgz#3855ded3fd3662b95fe9be880cd9a198f6ae162b"
+"@hickory/in-memory@^1.0.0-beta.7":
+  version "1.0.0-beta.7"
+  resolved "https://registry.yarnpkg.com/@hickory/in-memory/-/in-memory-1.0.0-beta.7.tgz#8e7e04eeb2b487b3e576f76c846150b36bc6b050"
   dependencies:
     "@hickory/root" "^1.0.0-beta.8"
 

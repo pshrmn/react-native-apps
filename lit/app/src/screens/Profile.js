@@ -25,11 +25,16 @@ export default ({ router }) => (
           title="Logout"
           onPress={async () => {
             await logout();
+            router.history.reset({
+              locations: ["/sign-in#login"]
+            });
+            /*
             router.navigate({
               name: "Sign In",
               hash: "login",
               method: "REPLACE"
             });
+            */
           }}
         />
       </View>

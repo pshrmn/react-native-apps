@@ -21,7 +21,7 @@
   "dependencies": {
     "@curi/react-native": "^1.0.0-beta.8",
     "@curi/router": "^1.0.0-beta.37",
-    "@hickory/in-memory": "^1.0.0-beta.5",
+    "@hickory/in-memory": "^1.0.0-beta.7",
     "apollo-boost": "^0.1.10",
     "apollo-link-context": "^1.0.8",
     "expo": "^27.0.1",
