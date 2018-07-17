@@ -18,3 +18,13 @@ export const IDEA_QUERY = gql`
     }
   }
 `;
+
+export const IDEAS_QUERY = gql`
+  query ideas {
+    ideas {
+      id
+      name
+      type
+    }
+  }
+`;

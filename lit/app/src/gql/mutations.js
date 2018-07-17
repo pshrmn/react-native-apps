@@ -37,6 +37,10 @@ export const CREATE_IDEA_MUTATION = gql`
     ) {
       idea {
         id
+        name
+        description
+        type
+        public
       }
       error
     }

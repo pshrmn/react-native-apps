@@ -5,25 +5,30 @@ import { Link } from "@curi/react-native";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#eee",
-    alignSelf: "stretch"
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+    backgroundColor: "orange",
+    padding: 10
   },
   homeText: {
-    fontSize: 35,
-    color: "#444"
+    fontSize: 50,
+  },
+  linkText: {
+    fontSize: 30
   }
 });
 
 export default () => (
   <View style={styles.container}>
     <Text style={styles.homeText}>Lit.</Text>
+    <Link to="Ideas">
+      <Text style={styles.linkText}>Ideas</Text>
+    </Link>
     <Link to="New Idea">
-      <Text>New Idea</Text>
+      <Text style={styles.linkText}>New Idea</Text>
     </Link>
     <Link to="Profile">
-      <Text>Profile</Text>
+      <Text style={styles.linkText}>Profile</Text>
     </Link>
   </View>
 );

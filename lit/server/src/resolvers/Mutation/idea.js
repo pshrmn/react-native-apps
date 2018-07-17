@@ -38,6 +38,10 @@ const idea = {
         },
         `{
           id
+          name
+          description
+          type
+          public
         }`
       );
       return { idea };

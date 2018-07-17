@@ -3,6 +3,7 @@ import SignIn from "./screens/SignIn";
 import Profile from "./screens/Profile";
 import NewIdea from "./screens/NewIdea";
 import Idea from "./screens/Idea";
+import Ideas from "./screens/Ideas";
 
 import { authOnly, noAuth } from "./protect";
 
@@ -51,5 +52,14 @@ export default [
         body: Idea
       };
     }
-  })
+  }),
+  authOnly({
+    name: "Ideas",
+    path: "ideas",
+    response() {
+      return {
+        body: Ideas
+      };
+    }
+  }),
 ];

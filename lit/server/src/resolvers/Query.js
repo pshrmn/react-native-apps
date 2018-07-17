@@ -4,7 +4,7 @@ const Query = {
   ideas(parent, args, ctx, info) {
     const id = getUserId(ctx);
     const where = {
-      author: {
+      creator: {
         id
       }
     };

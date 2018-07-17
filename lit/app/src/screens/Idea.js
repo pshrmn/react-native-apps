@@ -6,21 +6,35 @@ import { IDEA_QUERY } from "../gql/queries";
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "orange",
+    backgroundColor: "#5ec930",
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center"
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+    padding: 10
+  },
+  nameText: {
+    fontSize: 50,
+    color: "#fff"
+  },
+  descriptionText: {
+    fontSize: 30,
+    color: "#fff"
   }
 });
 
 export default ({ response }) => (
   <View style={styles.container}>
     <Query query={IDEA_QUERY} variables={{ id: response.params.id }}>
-      {({ data, loading }) => (
+      {({ data: { idea }, loading }) => (
         loading
           ? <Text>Loading...</Text>
           : <View>
-              <Text>{data.idea.name}</Text>
+              <Text style={styles.nameText}>
+                {idea.name}
+              </Text>
+              <Text style={styles.descriptionText}>
+                {idea.description}
+              </Text>
             </View>
       )}
     </Query>

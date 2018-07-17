@@ -1,11 +1,12 @@
 import React from "react";
-import { KeyboardAvoidingView, View, Text, Button, Switch, StyleSheet } from "react-native";
+import { View, Text, Button, Switch, StyleSheet } from "react-native";
 import { Mutation } from "react-apollo";
 
 import NamedTextField from "./NamedTextField";
 import NamedTextArea from "./NamedTextArea";
 import Error from "./Error";
 import { CREATE_IDEA_MUTATION } from "../gql/mutations";
+import { IDEAS_QUERY } from "../gql/queries";
 import { IDEA_TYPES } from "../constants";
 
 class NewIdeaForm extends React.Component {
@@ -31,8 +32,10 @@ class NewIdeaForm extends React.Component {
   }
 
   submit = async () => {
-    const response = await this.props.createIdea({
-      variables: this.state.values
+    const { createIdea } = this.props;
+    const response = await createIdea({
+      variables: this.state.values,
+      refetchQueries: [{ query: IDEAS_QUERY }]
     });
 
     const { error, idea } = response.data.createIdea;
@@ -55,7 +58,7 @@ class NewIdeaForm extends React.Component {
 
   render() {
     return (
-      <KeyboardAvoidingView behavior="padding">
+      <View>
         <Error error={this.state.error} />
         <NamedTextField
           name="Name"
@@ -87,7 +90,7 @@ class NewIdeaForm extends React.Component {
             onPress={this.cancel}
           />
         </View>
-      </KeyboardAvoidingView>
+      </View>
     )
   }
 }

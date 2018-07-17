@@ -1,4 +1,5 @@
 import React from "react";
+import { View, StatusBar } from "react-native";
 import { CuriProvider } from "@curi/react-native";
 import { ApolloProvider } from "react-apollo";
 
@@ -16,10 +17,13 @@ export default () => (
         }
         const { body:Body } = response;
         return (
-          <Body
-            response={response}
-            router={router}
-          />
+          <React.Fragment>
+            <StatusBar />
+            <Body
+              response={response}
+              router={router}
+            />
+          </React.Fragment>
         );
       }}
     </CuriProvider>

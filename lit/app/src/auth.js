@@ -11,6 +11,6 @@ export const logout = async function() {
 }
 
 export const isLoggedIn = async function() {
-  const token = await AsyncStorage.getItem(TOKEN_KEY)
+  const token = await AsyncStorage.getItem(TOKEN_KEY);
   return token != null;
 }
