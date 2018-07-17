@@ -1,105 +1,55 @@
-import { isLoggedIn } from "./auth";
-
 import Home from "./screens/Home";
 import SignIn from "./screens/SignIn";
 import Profile from "./screens/Profile";
 import NewIdea from "./screens/NewIdea";
 import Idea from "./screens/Idea";
 
+import { authOnly, noAuth } from "./protect";
+
 export default [
-  {
+  authOnly({
     name: "Home",
     path: "",
-    match: {
-      isLoggedIn
-    },
-    response({ resolved }) {
-      if (!resolved.isLoggedIn) {
-        return {
-          redirectTo: {
-            name: "Sign In"
-          }
-        };
-      }
+    response() {
       return {
         body: Home
       };
     }
-  },
-  {
+  }),
+  noAuth({
     name: "Sign In",
     path: "sign-in",
-    match: {
-      isLoggedIn
-    },
-    response({ resolved }) {
-      if (resolved.isLoggedIn) {
-        return {
-          redirectTo: {
-            name: "Home"
-          }
-        };
-      }
+    response() {
       return {
         body: SignIn
       };
     }
-  },
-  {
+  }),
+  authOnly({
     name: "Profile",
     path: "profile",
-    match: {
-      isLoggedIn
-    },
-    response({ resolved }) {
-      if (!resolved.isLoggedIn) {
-        return {
-          redirectTo: {
-            name: "Sign In"
-          }
-        };
-      }
+    response() {
       return {
         body: Profile
       };
     }
-  },
-  {
+  }),
+  authOnly({
     name: "New Idea",
     path: "new-idea",
-    match: {
-      isLoggedIn
-    },
-    response({ resolved }) {
-      if (!resolved.isLoggedIn) {
-        return {
-          redirectTo: {
-            name: "Sign In"
-          }
-        };
-      }
+    response() {
       return {
         body: NewIdea
       };
     }
-  },
-  {
+  }),
+  authOnly({
     name: "Idea",
     path: "idea/:id",
-    match: {
-      isLoggedIn
-    },
-    response({ resolved }) {
-      if (!resolved.isLoggedIn) {
-        return {
-          redirectTo: {
-            name: "Sign In"
-          }
-        };
-      }
+    response() {
       return {
         body: Idea
       };
     }
-  }
+  })
 ];
