@@ -3,6 +3,7 @@
 
 type Query {
   ideas: [Idea!]!
+  publicIdeas: [Idea!]!
   idea(id: ID!): Idea
   me: User
 }

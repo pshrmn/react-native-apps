@@ -3,7 +3,7 @@ import { View, Text, Button, StyleSheet } from "react-native";
 import { Query, Mutation } from "react-apollo";
 import { Link } from "@curi/react-native";
 
-import { IDEA_QUERY, IDEAS_QUERY, PROFILE_QUERY } from "../gql/queries";
+import { IDEA_QUERY, IDEAS_QUERY, PROFILE_QUERY, PUBLIC_IDEAS_QUERY } from "../gql/queries";
 import { DELETE_IDEA_MUTATION } from "../gql/mutations";
 
 const styles = StyleSheet.create({
@@ -32,7 +32,7 @@ const DeleteIdea = ({ id, router }) => (
         onPress={async () => {
           const { error, idea } = await deleteIdea({
             variables: { id },
-            refetchQueries: [{ query: IDEAS_QUERY }]
+            refetchQueries: [{ query: IDEAS_QUERY }, { query: PUBLIC_IDEAS_QUERY }]
           });
           if (error) {
             // TODO: display error

@@ -27,6 +27,9 @@ export default () => (
     <Link to="New Idea">
       <Text style={styles.linkText}>New Idea</Text>
     </Link>
+    <Link to="Inspiration">
+      <Text style={styles.linkText}>Inspiration</Text>
+    </Link>
     <Link to="Profile">
       <Text style={styles.linkText}>Profile</Text>
     </Link>

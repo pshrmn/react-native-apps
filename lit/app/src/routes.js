@@ -5,6 +5,7 @@ import NewIdea from "./screens/NewIdea";
 import Idea from "./screens/Idea";
 import Ideas from "./screens/Ideas";
 import EditIdea from "./screens/EditIdea";
+import Inspiration from "./screens/Inspiration";
 
 import { authOnly, noAuth } from "./protect";
 
@@ -71,6 +72,15 @@ export default [
     response() {
       return {
         body: Ideas
+      };
+    }
+  }),
+  authOnly({
+    name: "Inspiration",
+    path: "inspiration",
+    response() {
+      return {
+        body: Inspiration
       };
     }
   }),

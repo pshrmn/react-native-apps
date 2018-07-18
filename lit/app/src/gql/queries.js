@@ -33,3 +33,13 @@ export const IDEAS_QUERY = gql`
     }
   }
 `;
+
+export const PUBLIC_IDEAS_QUERY = gql`
+  query publicIdeas {
+    publicIdeas {
+      id
+      name
+      type
+    }
+  }
+`;

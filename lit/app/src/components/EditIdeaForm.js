@@ -6,7 +6,7 @@ import NamedTextField from "./NamedTextField";
 import NamedTextArea from "./NamedTextArea";
 import Error from "./Error";
 import { UPDATE_IDEA_MUTATION } from "../gql/mutations";
-import { IDEA_QUERY, IDEAS_QUERY } from "../gql/queries";
+import { IDEA_QUERY, IDEAS_QUERY, PUBLIC_IDEAS_QUERY } from "../gql/queries";
 import { IDEA_TYPES } from "../constants";
 
 class NewIdeaForm extends React.Component {
@@ -30,7 +30,7 @@ class NewIdeaForm extends React.Component {
     const { updateIdea } = this.props;
     const response = await updateIdea({
       variables: this.state.values,
-      refetchQueries: [{ query: IDEAS_QUERY }]
+      refetchQueries: [{ query: IDEAS_QUERY }, { query: PUBLIC_IDEAS_QUERY }]
     });
 
     const { error, idea } = response.data.updateIdea;

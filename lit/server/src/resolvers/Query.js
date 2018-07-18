@@ -12,6 +12,15 @@ const Query = {
     return ctx.db.query.ideas({ where }, info);
   },
 
+  publicIdeas(parent, args, ctx, info) {
+    return ctx.db.query.ideas(
+      { where: {
+        public: true
+      }},
+      info
+    );
+  },
+
   idea(parent, { id }, ctx, info) {
     return ctx.db.query.idea({ where: { id } }, info);
   },
