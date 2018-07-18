@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const { IDEA_TYPES_ENUM } = require("./constants");
 
 function getUserId(ctx) {
   const Authorization = ctx.request.get('Authorization');
@@ -17,7 +18,12 @@ class AuthError extends Error {
   }
 }
 
+function invalidType(type) {
+  return IDEA_TYPES_ENUM.indexOf(type) === -1;
+}
+
 module.exports = {
   getUserId,
-  AuthError
+  AuthError,
+  invalidType
 };

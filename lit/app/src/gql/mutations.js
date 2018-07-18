@@ -46,3 +46,38 @@ export const CREATE_IDEA_MUTATION = gql`
     }
   }
 `;
+
+export const UPDATE_IDEA_MUTATION = gql`
+  mutation updateIdea(
+    $id: ID!,
+    $name: String,
+    $description: String,
+    $type: IdeaType,
+    $public: Boolean
+  ) {
+    updateIdea(
+      id: $id,
+      name: $name,
+      description: $description,
+      type: $type
+      public: $public
+    ) {
+      idea {
+        id
+        name
+        description
+        type
+        public
+      }
+      error
+    }
+  }
+`;
+
+export const DELETE_IDEA_MUTATION = gql`
+  mutation deleteIdea($id: ID!) {
+    deleteIdea(id: $id) {
+      error
+    }
+  }
+`;

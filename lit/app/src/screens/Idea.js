@@ -1,8 +1,10 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { Query } from "react-apollo";
+import { View, Text, Button, StyleSheet } from "react-native";
+import { Query, Mutation } from "react-apollo";
+import { Link } from "@curi/react-native";
 
-import { IDEA_QUERY } from "../gql/queries";
+import { IDEA_QUERY, IDEAS_QUERY, PROFILE_QUERY } from "../gql/queries";
+import { DELETE_IDEA_MUTATION } from "../gql/mutations";
 
 const styles = StyleSheet.create({
   container: {
@@ -22,11 +24,52 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ({ response }) => (
+const DeleteIdea = ({ id, router }) => (
+  <Mutation mutation={DELETE_IDEA_MUTATION}>
+    {(deleteIdea, { loading, data, error }) => (
+      <Button
+        title="Delete Idea"
+        onPress={async () => {
+          const { error, idea } = await deleteIdea({
+            variables: { id },
+            refetchQueries: [{ query: IDEAS_QUERY }]
+          });
+          if (error) {
+            // TODO: display error
+          } else {
+            router.navigate({
+              name: "Ideas",
+              method: "REPLACE"
+            });
+          }
+        }}
+      />
+    )}
+  </Mutation>
+)
+
+const OwnerControls = ({ id, creator, router }) => (
+  <Query query={PROFILE_QUERY}>
+    {({ loading, data }) => {
+      return loading
+        ? null
+        : data.me.id === creator
+          ? <View>
+              <Link to="Edit Idea" params={{ id }}>
+                <Text>Edit Idea</Text>
+              </Link>
+              <DeleteIdea id={id} router={router} />
+            </View>
+          : null;
+    }}
+  </Query>
+);
+
+export default ({ response, router }) => (
   <View style={styles.container}>
     <Query query={IDEA_QUERY} variables={{ id: response.params.id }}>
-      {({ data: { idea }, loading }) => (
-        loading
+      {({ data: { idea }, loading }) => {
+        return loading
           ? <Text>Loading...</Text>
           : <View>
               <Text style={styles.nameText}>
@@ -35,8 +78,16 @@ export default ({ response }) => (
               <Text style={styles.descriptionText}>
                 {idea.description}
               </Text>
-            </View>
-      )}
+              <Text>
+                Public? {idea.public ? "Yes" : "No"}
+              </Text>
+              <OwnerControls
+                id={idea.id}
+                creator={idea.creator.id}
+                router={router}
+              />
+            </View>;
+      }}
     </Query>
   </View>
 );

@@ -4,6 +4,7 @@ import Profile from "./screens/Profile";
 import NewIdea from "./screens/NewIdea";
 import Idea from "./screens/Idea";
 import Ideas from "./screens/Ideas";
+import EditIdea from "./screens/EditIdea";
 
 import { authOnly, noAuth } from "./protect";
 
@@ -51,7 +52,18 @@ export default [
       return {
         body: Idea
       };
-    }
+    },
+    children: [
+      authOnly({
+        name: "Edit Idea",
+        path: "edit",
+        response() {
+          return {
+            body: EditIdea
+          }
+        }
+      })
+    ]
   }),
   authOnly({
     name: "Ideas",

@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 40,
-    color: "firebrick"
+    color: "#1E5219"
   }
 });
 

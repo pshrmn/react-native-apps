@@ -16,8 +16,14 @@ type Mutation {
     type: IdeaType!,
     public: Boolean = false
   ): IdeaResponse!
-  togglePublic(id: ID!): Idea!
-  deleteIdea(id: ID!): Idea!
+  updateIdea(
+    id: ID!,
+    name: String,
+    description: String,
+    type: IdeaType,
+    public: Boolean
+  ): IdeaResponse!
+  deleteIdea(id: ID!): IdeaResponse!
 }
 
 type AuthPayload {
