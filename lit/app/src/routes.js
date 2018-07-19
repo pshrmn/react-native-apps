@@ -1,11 +1,14 @@
 import Home from "./screens/Home";
+
 import SignIn from "./screens/SignIn";
 import Profile from "./screens/Profile";
-import NewIdea from "./screens/NewIdea";
+import ChangePassword from "./screens/ChangePassword";
+
 import Idea from "./screens/Idea";
 import Ideas from "./screens/Ideas";
-import EditIdea from "./screens/EditIdea";
 import Inspiration from "./screens/Inspiration";
+import NewIdea from "./screens/NewIdea";
+import EditIdea from "./screens/EditIdea";
 
 import { authOnly, noAuth } from "./protect";
 
@@ -35,7 +38,18 @@ export default [
       return {
         body: Profile
       };
-    }
+    },
+    children: [
+      authOnly({
+        name: "Change Password",
+        path: "change-password",
+        response() {
+          return {
+            body: ChangePassword
+          }
+        }
+      })
+    ]
   }),
   authOnly({
     name: "New Idea",

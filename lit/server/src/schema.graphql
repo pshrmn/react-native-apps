@@ -11,6 +11,7 @@ type Query {
 type Mutation {
   signup(email: String!, password: String!, name: String!): AuthResponse!
   login(email: String!, password: String!): AuthResponse!
+  changePassword(oldPassword: String!, newPassword: String!): ChangePasswordResponse
   createIdea(
     name: String!,
     description: String!,
@@ -25,6 +26,10 @@ type Mutation {
     public: Boolean
   ): IdeaResponse!
   deleteIdea(id: ID!): IdeaResponse!
+}
+
+type ChangePasswordResponse {
+  success: Boolean!
 }
 
 type AuthPayload {

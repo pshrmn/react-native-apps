@@ -1,8 +1,8 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 
-import SignUpForm from "../components/SignUpForm";
-import LoginForm from "../components/LoginForm";
+import SignUpForm from "../components/forms//SignUpForm";
+import LoginForm from "../components/forms//LoginForm";
 
 const styles = StyleSheet.create({
   container: {

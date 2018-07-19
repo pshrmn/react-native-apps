@@ -81,3 +81,11 @@ export const DELETE_IDEA_MUTATION = gql`
     }
   }
 `;
+
+export const CHANGE_PASSWORD_MUTATION = gql`
+  mutation changePassword($oldPassword: String!, $newPassword: String!) {
+    changePassword(oldPassword: $oldPassword, newPassword: $newPassword) {
+      success
+    }
+  }
+`;

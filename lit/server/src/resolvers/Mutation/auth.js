@@ -1,5 +1,5 @@
-const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const { getUserId, hashPassword, checkPassword } = require('../../utils');
 
 const auth = {
   async signup(parent, { password, ...rest }, ctx, info) {
@@ -7,7 +7,7 @@ const auth = {
       const user = await ctx.db.mutation.createUser({
         data: {
           ...rest,
-          password: await bcrypt.hash(password, 10)
+          password: await hashPassword(password)
         },
       });
       return {
@@ -27,14 +27,14 @@ const auth = {
     const user = await ctx.db.query.user({ where: { email } })
     if (!user) {
       return {
-        error: "Invalid email or password."
+        error: "Invalid email."
       };
     }
 
-    const valid = await bcrypt.compare(password, user.password)
+    const valid = await checkPassword(password, user.password);
     if (!valid) {
       return {
-        error: "Invalid email or password."
+        error: "Invalid password."
       };
     }
 
@@ -44,6 +44,33 @@ const auth = {
         user
       }
     };
+  },
+
+  async changePassword(parent, { oldPassword, newPassword }, ctx, info) {
+    const userId = getUserId(ctx);
+    const user = await ctx.db.query.user({ where: { id: userId } })
+    if (!user) {
+      return { success: false };
+    }
+
+    const valid = await checkPassword(oldPassword, user.password);
+    if (!valid) {
+      return { success: false };
+    }
+
+    try {
+      const updatedUser = await ctx.db.mutation.updateUser({
+        where: {
+          id: userId
+        },
+        data: {
+          password: await hashPassword(newPassword)
+        }
+      });
+      return { success: true };
+    } catch (e) {
+      return { success: false };
+    }
   },
 }
 

@@ -1,4 +1,6 @@
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs')
+
 const { IDEA_TYPES_ENUM } = require("./constants");
 
 function getUserId(ctx) {
@@ -18,6 +20,14 @@ class AuthError extends Error {
   }
 }
 
+function hashPassword(password) {
+  return bcrypt.hash(password, 10);
+}
+
+function checkPassword(provided, known) {
+  return bcrypt.compare(provided, known);
+}
+
 function invalidType(type) {
   return IDEA_TYPES_ENUM.indexOf(type) === -1;
 }
@@ -25,5 +35,7 @@ function invalidType(type) {
 module.exports = {
   getUserId,
   AuthError,
-  invalidType
+  invalidType,
+  hashPassword,
+  checkPassword
 };

@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-import EditIdeaForm from "../components/EditIdeaForm";
+import EditIdeaForm from "../components/forms/EditIdeaForm";
 
 const styles = StyleSheet.create({
   container: {

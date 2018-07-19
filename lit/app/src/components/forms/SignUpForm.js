@@ -3,10 +3,10 @@ import { View, Text, Button, StyleSheet } from "react-native";
 import { Mutation } from "react-apollo";
 import { Link } from "@curi/react-native";
 
-import NamedTextField from "./NamedTextField";
-import Error from "./Error";
-import { SIGNUP_MUTATION } from "../gql/mutations";
-import { login } from "../auth";
+import NamedTextField from "../NamedTextField";
+import Error from "../Error";
+import { SIGNUP_MUTATION } from "../../gql/mutations";
+import { login } from "../../auth";
 
 class SignUpForm extends React.Component {
   state = {
@@ -30,6 +30,7 @@ class SignUpForm extends React.Component {
   }
 
   signUp = async () => {
+    this.setState({ error: undefined });
     const response = await this.props.signup({
       variables: this.state.values
     });

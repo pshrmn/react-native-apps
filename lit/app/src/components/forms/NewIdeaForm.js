@@ -1,17 +1,22 @@
 import React from "react";
 import { View, Text, Button, Switch, StyleSheet } from "react-native";
-import { Query, Mutation } from "react-apollo";
+import { Mutation } from "react-apollo";
 
-import NamedTextField from "./NamedTextField";
-import NamedTextArea from "./NamedTextArea";
-import Error from "./Error";
-import { UPDATE_IDEA_MUTATION } from "../gql/mutations";
-import { IDEA_QUERY, IDEAS_QUERY, PUBLIC_IDEAS_QUERY } from "../gql/queries";
-import { IDEA_TYPES } from "../constants";
+import NamedTextField from "../NamedTextField";
+import NamedTextArea from "../NamedTextArea";
+import Error from "../Error";
+import { CREATE_IDEA_MUTATION } from "../../gql/mutations";
+import { IDEAS_QUERY, PUBLIC_IDEAS_QUERY } from "../../gql/queries";
+import { IDEA_TYPES } from "../../constants";
 
 class NewIdeaForm extends React.Component {
   state = {
-    values: {},
+    values: {
+      name: "",
+      description: "",
+      type: IDEA_TYPES[0],
+      public: false
+    },
     error: undefined
   };
 
@@ -27,13 +32,13 @@ class NewIdeaForm extends React.Component {
   }
 
   submit = async () => {
-    const { updateIdea } = this.props;
-    const response = await updateIdea({
+    const { createIdea } = this.props;
+    const response = await createIdea({
       variables: this.state.values,
       refetchQueries: [{ query: IDEAS_QUERY }, { query: PUBLIC_IDEAS_QUERY }]
     });
 
-    const { error, idea } = response.data.updateIdea;
+    const { error, idea } = response.data.createIdea;
     if (error) {
       this.setState({
         error
@@ -51,40 +56,7 @@ class NewIdeaForm extends React.Component {
     this.props.router.history.go(-1);
   }
 
-  componentDidUpdate(prevProps) {
-    // set the state when the query has loaded
-    if (prevProps.query.loading && !this.props.query.loading) {
-      this.setState(prevState => ({
-        ...prevState,
-        values: {
-          ...prevState.values,
-          ...this.props.query.data.idea
-        }
-      }));
-    }
-  }
-
-  componentDidMount() {
-    if (this.props.query.loading === false) {
-      this.setState(prevState => ({
-        ...prevState,
-        values: {
-          ...prevState.values,
-          ...this.props.query.data.idea
-        }
-      }));
-    }
-  }
-
   render() {
-    if (this.props.query.loading) {
-      return (
-        <View>
-          <Text>Loading...</Text>
-        </View>
-      );
-    }
-
     return (
       <View>
         <Error error={this.state.error} />
@@ -124,18 +96,9 @@ class NewIdeaForm extends React.Component {
 }
 
 export default props => (
-  <Query query={IDEA_QUERY} variables={{ id: props.idea }}>
-    {queryResults => (
-      <Mutation mutation={UPDATE_IDEA_MUTATION}>
-        {updateIdea => (
-          <NewIdeaForm
-            {...props}
-            updateIdea={updateIdea}
-            query={queryResults}
-          />
-        )}
-      </Mutation>
+  <Mutation mutation={CREATE_IDEA_MUTATION}>
+    {(createIdea, { data }) => (
+      <NewIdeaForm {...props} createIdea={createIdea} createIdeaData={data}/>
     )}
-  </Query>
-  
+  </Mutation>
 );
