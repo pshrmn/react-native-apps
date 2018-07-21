@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, TouchableHighlight, StyleSheet } from "react-native";
+import { View, KeyboardAvoidingView, Text, TouchableHighlight, StyleSheet } from "react-native";
 import { Mutation } from "react-apollo";
 
 import NamedTextField from "../NamedTextField";
@@ -67,7 +67,7 @@ class ChangePasswordForm extends React.Component {
 
   render() {
     return (
-      <View>
+      <KeyboardAvoidingView>
         <Error error={this.state.error ? "Invalid Entry" : null} />
         <NamedTextField
           name="Current Password"
@@ -109,7 +109,7 @@ class ChangePasswordForm extends React.Component {
             </Text>
           </TouchableHighlight>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     )
   }
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, TouchableHighlight, Switch, StyleSheet } from "react-native";
+import { View, KeyboardAvoidingView, Text, TouchableHighlight, Switch, StyleSheet } from "react-native";
 import { Query, Mutation } from "react-apollo";
 
 import NamedTextField from "../NamedTextField";
@@ -103,7 +103,7 @@ class NewIdeaForm extends React.Component {
     }
 
     return (
-      <View>
+      <KeyboardAvoidingView>
         <Error error={this.state.error} />
         <NamedTextField
           name="Name"
@@ -152,7 +152,7 @@ class NewIdeaForm extends React.Component {
             </Text>
           </TouchableHighlight>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     )
   }
 }

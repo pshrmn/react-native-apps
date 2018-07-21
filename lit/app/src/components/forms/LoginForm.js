@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, TouchableHighlight, StyleSheet } from "react-native";
+import { View, KeyboardAvoidingView, Text, TouchableHighlight, StyleSheet } from "react-native";
 import { Mutation } from "react-apollo";
 import { Link } from "@curi/react-native";
 
@@ -66,7 +66,7 @@ class LoginForm extends React.Component {
 
   render() {
     return (
-      <View>
+      <KeyboardAvoidingView>
         <Error error={this.state.error} />
         <NamedTextField
           name="Email"
@@ -104,7 +104,7 @@ class LoginForm extends React.Component {
             </Text>
           </Link>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     )
   }
 }
