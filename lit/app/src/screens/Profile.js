@@ -1,8 +1,9 @@
 import React from "react";
-import { View, Text, TouchableHighlight, StyleSheet } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { withApollo, Query } from "react-apollo";
 import { Link } from "@curi/react-native";
 
+import { NeutralHighlight, NegativeHighlight } from "../components/buttons";
 import { PROFILE_QUERY } from "../gql/queries";
 import { logout } from "../auth";
 
@@ -12,15 +13,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10
   },
   nameText: {
-    fontSize: 50
-  },
-  button: {
-    marginVertical: 10,
-    backgroundColor: "cyan",
-    padding: 5
+    fontSize: 50,
+    color: "#222"
   },
   buttonText: {
-    fontSize: 20
+    fontSize: 20,
+    color: "#222"
   }
 });
 
@@ -31,15 +29,22 @@ export default withApollo(({ router, client: apolloClient }) => (
         <Text style={styles.nameText}>{loading ? "" : data.me.name}</Text>
         <Link
           to="Change Password"
-          anchor={TouchableHighlight}
-          style={styles.button}
-          underlayColor="darkcyan"
+          anchor={NeutralHighlight}
         >
           <Text style={styles.buttonText}>
             Change Password
           </Text>
         </Link>
-        <TouchableHighlight
+        <NeutralHighlight
+          onPress={() => {
+            router.history.go(-1);
+          }}
+        >
+          <Text style={styles.buttonText}>
+            Home
+          </Text>
+        </NeutralHighlight>
+        <NegativeHighlight
           onPress={async () => {
             await logout();
             router.history.reset({
@@ -47,24 +52,11 @@ export default withApollo(({ router, client: apolloClient }) => (
             });
             await apolloClient.cache.reset();      
           }}
-          style={styles.button}
-          underlayColor="darkcyan"
         >
           <Text style={styles.buttonText}>
             Logout
           </Text>
-        </TouchableHighlight>
-        <TouchableHighlight
-          onPress={() => {
-            router.history.go(-1);
-          }}
-          style={styles.button}
-          underlayColor="darkcyan"
-        >
-          <Text style={styles.buttonText}>
-            Home
-          </Text>
-        </TouchableHighlight>
+        </NegativeHighlight>
       </View>
     )}
   </Query>

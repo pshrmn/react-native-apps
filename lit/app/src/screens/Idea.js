@@ -1,14 +1,15 @@
 import React from "react";
-import { View, Text, TouchableHighlight, StyleSheet } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { Query, Mutation } from "react-apollo";
 import { Link } from "@curi/react-native";
 
+import { NegativeHighlight, NeutralHighlight } from "../components/buttons";
 import { IDEA_QUERY, IDEAS_QUERY, PROFILE_QUERY, PUBLIC_IDEAS_QUERY } from "../gql/queries";
 import { DELETE_IDEA_MUTATION } from "../gql/mutations";
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#5ec930",
+    backgroundColor: "#fff",
     flex: 1,
     justifyContent: "flex-start",
     alignItems: "flex-start",
@@ -16,34 +17,29 @@ const styles = StyleSheet.create({
   },
   nameText: {
     fontSize: 50,
-    color: "#fff"
+    color: "#222"
   },
   descriptionText: {
     fontSize: 30,
-    color: "#fff"
+    color: "#222"
   },
   publicText: {
     fontSize: 20,
-    color: "#fff"
-  },
-  button: {
-    backgroundColor: "white",
-    marginVertical: 5,
-    padding: 5
+    color: "#222"
   },
   buttonText: {
     fontSize: 20
   },
   loadingText: {
     fontSize: 20,
-    color: "#fff"
+    color: "#222"
   }
 });
 
 const DeleteIdea = ({ id, router }) => (
   <Mutation mutation={DELETE_IDEA_MUTATION}>
     {(deleteIdea, { loading, data, error }) => (
-      <TouchableHighlight
+      <NegativeHighlight
         onPress={async () => {
           const { error, idea } = await deleteIdea({
             variables: { id },
@@ -58,13 +54,11 @@ const DeleteIdea = ({ id, router }) => (
             });
           }
         }}
-        style={styles.button}
-        underlayColor="#DAF7A6"
       >
         <Text style={styles.buttonText}>
           Delete Idea
         </Text>
-      </TouchableHighlight>
+      </NegativeHighlight>
     )}
   </Mutation>
 )
@@ -79,8 +73,7 @@ const OwnerControls = ({ id, creator, router }) => (
               <Link
                 to="Edit Idea"
                 params={{ id }}
-                style={styles.button}
-                underlayColor="#DAF7A6"
+                anchor={NeutralHighlight}
               >
                 <Text style={styles.buttonText}>Edit Idea</Text>
               </Link>

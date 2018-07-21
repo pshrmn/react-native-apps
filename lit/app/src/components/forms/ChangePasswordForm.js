@@ -1,9 +1,10 @@
 import React from "react";
-import { View, KeyboardAvoidingView, Text, TouchableHighlight, StyleSheet } from "react-native";
+import { View, KeyboardAvoidingView, Text, StyleSheet } from "react-native";
 import { Mutation } from "react-apollo";
 
 import NamedTextField from "../NamedTextField";
 import Error from "../Error";
+import { PositiveHighlight, NegativeHighlight } from "../buttons";
 import { CHANGE_PASSWORD_MUTATION } from "../../gql/mutations";
 
 const styles = StyleSheet.create({
@@ -12,14 +13,6 @@ const styles = StyleSheet.create({
   },
   titleField: {
     fontSize: 30
-  },
-  button: {
-    marginVertical: 10,
-    backgroundColor: "mediumaquamarine",
-    padding: 5
-  },
-  cancelButton: {
-    backgroundColor: "tomato"
   },
   buttonText: {
     fontSize: 20
@@ -90,24 +83,20 @@ class ChangePasswordForm extends React.Component {
           titleStyle={styles.titleField}
         />
         <View>
-          <TouchableHighlight
-            underlayColor="teal"
+          <PositiveHighlight
             onPress={this.changePassword}
-            style={styles.button}
           >
             <Text style={styles.buttonText}>
               Change Password
             </Text>
-          </TouchableHighlight>
-          <TouchableHighlight
+          </PositiveHighlight>
+          <NegativeHighlight
             onPress={this.cancel}
-            style={[styles.button, styles.cancelButton]}
-            underlayColor="firebrick"
           >
             <Text style={styles.buttonText}>
               Cancel
             </Text>
-          </TouchableHighlight>
+          </NegativeHighlight>
         </View>
       </KeyboardAvoidingView>
     )

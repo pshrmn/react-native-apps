@@ -13,7 +13,12 @@ export default () => (
     <CuriProvider router={router}>
       {({ response, router }) => {
         if (!response) {
-          return <Loading />;
+          return (
+            <React.Fragment>
+              <Header />
+              <Loading />
+            </React.Fragment>
+          );
         }
         const { body:Body } = response;
         return (

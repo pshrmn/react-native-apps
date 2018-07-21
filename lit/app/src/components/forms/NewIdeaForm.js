@@ -1,10 +1,11 @@
 import React from "react";
-import { View, KeyboardAvoidingView, Text, TouchableHighlight, Switch, StyleSheet } from "react-native";
+import { View, KeyboardAvoidingView, Text, Switch, StyleSheet } from "react-native";
 import { Mutation } from "react-apollo";
 
 import NamedTextField from "../NamedTextField";
 import NamedTextArea from "../NamedTextArea";
 import Error from "../Error";
+import { PositiveHighlight, NegativeHighlight } from "../buttons";
 import { CREATE_IDEA_MUTATION } from "../../gql/mutations";
 import { IDEAS_QUERY, PUBLIC_IDEAS_QUERY } from "../../gql/queries";
 import { IDEA_TYPES } from "../../constants";
@@ -15,11 +16,6 @@ const styles = StyleSheet.create({
   },
   titleField: {
     fontSize: 30
-  },
-  button: {
-    backgroundColor: "white",
-    marginVertical: 5,
-    padding: 5
   },
   buttonText: {
     fontSize: 20
@@ -105,24 +101,20 @@ class NewIdeaForm extends React.Component {
           />
         </View>
         <View>
-          <TouchableHighlight
+          <PositiveHighlight
             onPress={this.submit}
-            style={styles.button}
-            underlayColor="seagreen"
           >
             <Text style={styles.buttonText}>
               Save
             </Text>
-          </TouchableHighlight>
-          <TouchableHighlight
+          </PositiveHighlight>
+          <NegativeHighlight
             onPress={this.cancel}
-            style={styles.button}
-            underlayColor="firebrick"
           >
             <Text style={styles.buttonText}>
               Cancel
             </Text>
-          </TouchableHighlight>
+          </NegativeHighlight>
         </View>
       </KeyboardAvoidingView>
     )

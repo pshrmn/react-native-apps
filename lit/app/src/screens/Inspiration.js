@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
+import Title from "../components/Title";
 import IdeasList from "../components/IdeasList";
 import { PUBLIC_IDEAS_QUERY } from "../gql/queries";
 
@@ -8,22 +9,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    backgroundColor: "plum"
-  },
-  header: {
-    fontSize: 50
+    backgroundColor: "#fff"
   }
 });
 
 export default () => (
   <View style={styles.container}>
-    <Text style={styles.header}>
-      Inspiration
-    </Text>
+    <Title text="inspiration" background="indigo" />
     <IdeasList
       query={PUBLIC_IDEAS_QUERY}
       queryKey="publicIdeas"
-      textColor="#000"
+      textColor="#222"
     />
   </View>
 );

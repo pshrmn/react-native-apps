@@ -1,10 +1,11 @@
 import React from "react";
-import { View, KeyboardAvoidingView, Text, TouchableHighlight, StyleSheet } from "react-native";
+import { View, KeyboardAvoidingView, Text, StyleSheet } from "react-native";
 import { Mutation } from "react-apollo";
 import { Link } from "@curi/react-native";
 
 import NamedTextField from "../NamedTextField";
 import Error from "../Error";
+import { PositiveHighlight, NeutralOpacity } from "../buttons";
 import { LOGIN_MUTATION } from "../../gql/mutations";
 import { login } from "../../auth";
 
@@ -14,11 +15,6 @@ const styles = StyleSheet.create({
   },
   titleField: {
     fontSize: 30
-  },
-  button: {
-    marginVertical: 10,
-    backgroundColor: "cyan",
-    padding: 5
   },
   buttonText: {
     fontSize: 20
@@ -84,20 +80,17 @@ class LoginForm extends React.Component {
           titleStyle={styles.titleField}
         />
         <View>
-          <TouchableHighlight
+          <PositiveHighlight
             onPress={this.login}
-            underlayColor="darkcyan"
-            style={styles.button}
           >
             <Text style={styles.buttonText}>
               Login
             </Text>
-          </TouchableHighlight>
+          </PositiveHighlight>
           <Link
             to="Sign In"
             hash="signup"
-            style={styles.button}
-            underlayColor="darkcyan"
+            anchor={NeutralOpacity}
           >
             <Text style={styles.buttonText}>
               Need to create an account? Sign Up
