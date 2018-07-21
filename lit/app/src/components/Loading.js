@@ -4,13 +4,15 @@ import { View, Text, StyleSheet } from "react-native";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center"
+    paddingHorizontal: 10
+  },
+  loadingText: {
+    fontSize: 20
   }
 });
 
 export default () => (
   <View style={styles.container}>
-    <Text>Loading...</Text>
+    <Text style={styles.loadingText}>Loading...</Text>
   </View>
 );

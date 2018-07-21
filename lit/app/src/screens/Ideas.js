@@ -1,43 +1,30 @@
 import React from "react";
-import { View, FlatList, Text, StyleSheet } from "react-native";
-import { Query } from "react-apollo";
-import { Link } from "@curi/react-native";
+import { View, Text, StyleSheet } from "react-native";
 
+import IdeasList from "../components/IdeasList";
 import { IDEAS_QUERY } from "../gql/queries";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    backgroundColor: "cyan"
+    backgroundColor: "#1E5219"
   },
-  idea: {
-
-  },
-  text: {
-    fontSize: 40,
-    color: "#1E5219"
+  header: {
+    fontSize: 50,
+    color: "#fff"
   }
 });
 
 export default () => (
   <View style={styles.container}>
-    <Query query={IDEAS_QUERY}>
-      {({ data, loading }) => (
-        loading
-          ? <Text>Loading...</Text>
-          : <FlatList
-              data={data.ideas}
-              keyExtractor={item => item.id}
-              renderItem={({ item }) => (
-                <View style={styles.idea}>
-                  <Link to="Idea" params={{ id: item.id }}>
-                    <Text style={styles.text}>{item.name}</Text>
-                  </Link>
-                </View>
-              )}
-            />
-      )}
-    </Query>
+    <Text style={styles.header}>
+      Your Ideas
+    </Text>
+    <IdeasList
+      query={IDEAS_QUERY}
+      queryKey="ideas"
+      textColor="#fff"
+    />
   </View>
 );

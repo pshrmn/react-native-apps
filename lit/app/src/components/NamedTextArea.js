@@ -3,7 +3,6 @@ import { View, TextInput, Text, StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   textInput: {
-    width: 200,
     height: 200,
     textAlignVertical: "top"
   }
@@ -15,16 +14,16 @@ export default class NamedTextField extends React.PureComponent {
   }
 
   render() {
-    const { name, value, ...rest } = this.props;
+    const { name, value, titleStyle, textStyle, ...rest } = this.props;
     return (
       <View>
         <View>
-          <Text style={styles.name}>
+          <Text style={[styles.name, titleStyle]}>
             {name}
           </Text>
         </View>
         <TextInput
-          style={styles.textInput}
+          style={[styles.textInput, textStyle]}
           value={value}
           onChangeText={this.changeText}
           autoCapitalize="none"

@@ -6,9 +6,8 @@ import EditIdeaForm from "../components/forms/EditIdeaForm";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "gold"
+    paddingHorizontal: 10,
+    backgroundColor: "tomato"
   }
 });
 

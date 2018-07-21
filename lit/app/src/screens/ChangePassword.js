@@ -6,9 +6,8 @@ import ChangePasswordForm from "../components/forms/ChangePasswordForm";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#eee"
+    backgroundColor: "#eee",
+    paddingHorizontal: 10
   }
 });
 

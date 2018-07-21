@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Link } from "@curi/react-native";
 
 const styles = StyleSheet.create({
@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "flex-start",
     backgroundColor: "orange",
-    padding: 10
+    paddingHorizontal: 10
   },
   homeText: {
     fontSize: 50,
@@ -21,16 +21,16 @@ const styles = StyleSheet.create({
 export default () => (
   <View style={styles.container}>
     <Text style={styles.homeText}>Lit.</Text>
-    <Link to="Ideas">
+    <Link to="Ideas" anchor={TouchableOpacity}>
       <Text style={styles.linkText}>Ideas</Text>
     </Link>
-    <Link to="New Idea">
+    <Link to="New Idea" anchor={TouchableOpacity}>
       <Text style={styles.linkText}>New Idea</Text>
     </Link>
-    <Link to="Inspiration">
+    <Link to="Inspiration" anchor={TouchableOpacity}>
       <Text style={styles.linkText}>Inspiration</Text>
     </Link>
-    <Link to="Profile">
+    <Link to="Profile" anchor={TouchableOpacity}>
       <Text style={styles.linkText}>Profile</Text>
     </Link>
   </View>

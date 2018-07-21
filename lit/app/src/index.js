@@ -1,7 +1,7 @@
 import React from "react";
-import { View, StatusBar } from "react-native";
 import { CuriProvider } from "@curi/react-native";
 import { ApolloProvider } from "react-apollo";
+import Header from "./components/Header";
 
 import router from "./router";
 import apolloClient from "./apollo";
@@ -18,7 +18,7 @@ export default () => (
         const { body:Body } = response;
         return (
           <React.Fragment>
-            <StatusBar />
+            <Header />
             <Body
               response={response}
               router={router}

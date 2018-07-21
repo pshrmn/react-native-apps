@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
+import { View, Text, TouchableHighlight, StyleSheet } from "react-native";
 import { Mutation } from "react-apollo";
 import { Link } from "@curi/react-native";
 
@@ -7,6 +7,23 @@ import NamedTextField from "../NamedTextField";
 import Error from "../Error";
 import { LOGIN_MUTATION } from "../../gql/mutations";
 import { login } from "../../auth";
+
+const styles = StyleSheet.create({
+  textField: {
+    fontSize: 30
+  },
+  titleField: {
+    fontSize: 30
+  },
+  button: {
+    marginVertical: 10,
+    backgroundColor: "cyan",
+    padding: 5
+  },
+  buttonText: {
+    fontSize: 20
+  }
+});
 
 class LoginForm extends React.Component {
   state = {
@@ -55,23 +72,36 @@ class LoginForm extends React.Component {
           name="Email"
           value={this.state.values.email}
           onChange={value => { this.updateValue("email", value); }}
+          textStyle={styles.textField}
+          titleStyle={styles.titleField}
         />
         <NamedTextField
           name="Password"
           value={this.state.values.password}
           onChange={value => { this.updateValue("password", value); }}
           secureTextEntry={true}
+          textStyle={styles.textField}
+          titleStyle={styles.titleField}
         />
         <View>
-          <Button
-            title="Login"
+          <TouchableHighlight
             onPress={this.login}
-          />
+            underlayColor="darkcyan"
+            style={styles.button}
+          >
+            <Text style={styles.buttonText}>
+              Login
+            </Text>
+          </TouchableHighlight>
           <Link
-              to="Sign In"
-              hash="signup"
-            >
-            <Text>Need to create an account? Sign Up</Text>
+            to="Sign In"
+            hash="signup"
+            style={styles.button}
+            underlayColor="darkcyan"
+          >
+            <Text style={styles.buttonText}>
+              Need to create an account? Sign Up
+            </Text>
           </Link>
         </View>
       </View>

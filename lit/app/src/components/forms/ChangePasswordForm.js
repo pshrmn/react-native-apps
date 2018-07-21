@@ -1,10 +1,30 @@
 import React from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
+import { View, Text, TouchableHighlight, StyleSheet } from "react-native";
 import { Mutation } from "react-apollo";
 
 import NamedTextField from "../NamedTextField";
 import Error from "../Error";
 import { CHANGE_PASSWORD_MUTATION } from "../../gql/mutations";
+
+const styles = StyleSheet.create({
+  textField: {
+    fontSize: 30
+  },
+  titleField: {
+    fontSize: 30
+  },
+  button: {
+    marginVertical: 10,
+    backgroundColor: "mediumaquamarine",
+    padding: 5
+  },
+  cancelButton: {
+    backgroundColor: "tomato"
+  },
+  buttonText: {
+    fontSize: 20
+  }
+});
 
 class ChangePasswordForm extends React.Component {
   state = {
@@ -56,6 +76,8 @@ class ChangePasswordForm extends React.Component {
           onChange={value => {
             this.updateValue("oldPassword", value);
           }}
+          textStyle={styles.textField}
+          titleStyle={styles.titleField}
         />
         <NamedTextField
           name="New Password"
@@ -64,16 +86,28 @@ class ChangePasswordForm extends React.Component {
           onChange={value => {
             this.updateValue("newPassword", value);
           }}
+          textStyle={styles.textField}
+          titleStyle={styles.titleField}
         />
         <View>
-          <Button
-            title="Change Password"
+          <TouchableHighlight
+            underlayColor="teal"
             onPress={this.changePassword}
-          />
-          <Button
-            title="Cancel"
+            style={styles.button}
+          >
+            <Text style={styles.buttonText}>
+              Change Password
+            </Text>
+          </TouchableHighlight>
+          <TouchableHighlight
             onPress={this.cancel}
-          />
+            style={[styles.button, styles.cancelButton]}
+            underlayColor="firebrick"
+          >
+            <Text style={styles.buttonText}>
+              Cancel
+            </Text>
+          </TouchableHighlight>
         </View>
       </View>
     )

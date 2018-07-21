@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Button, Switch, StyleSheet } from "react-native";
+import { View, Text, TouchableHighlight, Switch, StyleSheet } from "react-native";
 import { Query, Mutation } from "react-apollo";
 
 import NamedTextField from "../NamedTextField";
@@ -8,6 +8,23 @@ import Error from "../Error";
 import { UPDATE_IDEA_MUTATION } from "../../gql/mutations";
 import { IDEA_QUERY, IDEAS_QUERY, PUBLIC_IDEAS_QUERY } from "../../gql/queries";
 import { IDEA_TYPES } from "../../constants";
+
+const styles = StyleSheet.create({
+  textField: {
+    fontSize: 30
+  },
+  titleField: {
+    fontSize: 30
+  },
+  button: {
+    backgroundColor: "white",
+    marginVertical: 5,
+    padding: 5
+  },
+  buttonText: {
+    fontSize: 20
+  }
+});
 
 class NewIdeaForm extends React.Component {
   state = {
@@ -94,29 +111,46 @@ class NewIdeaForm extends React.Component {
           onChange={value => {
             this.updateValue("name", value);
           }}
+          textStyle={styles.textField}
+          titleStyle={styles.titleField}
         />
         <NamedTextArea
           name="Description"
           value={this.state.values.description}
           maxLength={500}
           onChange={value => { this.updateValue("description", value); }}
+          textStyle={styles.textField}
+          titleStyle={styles.titleField}
         />
         <View>
           <Text>Public</Text>
           <Switch
             value={this.state.values.public}
             onValueChange={value => { this.updateValue("public", value); }}
+            onTintColor="#aaa"
+            thumbTintColor="white"
+            style={{ alignSelf: "flex-start" }}
           />
         </View>
         <View>
-          <Button
-            title="Save"
+        <TouchableHighlight
             onPress={this.submit}
-          />
-          <Button
-            title="Cancel"
+            style={styles.button}
+            underlayColor="seagreen"
+          >
+            <Text style={styles.buttonText}>
+              Save
+            </Text>
+          </TouchableHighlight>
+          <TouchableHighlight
             onPress={this.cancel}
-          />
+            style={styles.button}
+            underlayColor="firebrick"
+          >
+            <Text style={styles.buttonText}>
+              Cancel
+            </Text>
+          </TouchableHighlight>
         </View>
       </View>
     )

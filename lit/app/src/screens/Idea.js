@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
+import { View, Text, TouchableHighlight, StyleSheet } from "react-native";
 import { Query, Mutation } from "react-apollo";
 import { Link } from "@curi/react-native";
 
@@ -21,14 +21,29 @@ const styles = StyleSheet.create({
   descriptionText: {
     fontSize: 30,
     color: "#fff"
+  },
+  publicText: {
+    fontSize: 20,
+    color: "#fff"
+  },
+  button: {
+    backgroundColor: "white",
+    marginVertical: 5,
+    padding: 5
+  },
+  buttonText: {
+    fontSize: 20
+  },
+  loadingText: {
+    fontSize: 20,
+    color: "#fff"
   }
 });
 
 const DeleteIdea = ({ id, router }) => (
   <Mutation mutation={DELETE_IDEA_MUTATION}>
     {(deleteIdea, { loading, data, error }) => (
-      <Button
-        title="Delete Idea"
+      <TouchableHighlight
         onPress={async () => {
           const { error, idea } = await deleteIdea({
             variables: { id },
@@ -43,7 +58,13 @@ const DeleteIdea = ({ id, router }) => (
             });
           }
         }}
-      />
+        style={styles.button}
+        underlayColor="#DAF7A6"
+      >
+        <Text style={styles.buttonText}>
+          Delete Idea
+        </Text>
+      </TouchableHighlight>
     )}
   </Mutation>
 )
@@ -55,8 +76,13 @@ const OwnerControls = ({ id, creator, router }) => (
         ? null
         : data.me.id === creator
           ? <View>
-              <Link to="Edit Idea" params={{ id }}>
-                <Text>Edit Idea</Text>
+              <Link
+                to="Edit Idea"
+                params={{ id }}
+                style={styles.button}
+                underlayColor="#DAF7A6"
+              >
+                <Text style={styles.buttonText}>Edit Idea</Text>
               </Link>
               <DeleteIdea id={id} router={router} />
             </View>
@@ -70,7 +96,9 @@ export default ({ response, router }) => (
     <Query query={IDEA_QUERY} variables={{ id: response.params.id }}>
       {({ data: { idea }, loading }) => {
         return loading
-          ? <Text>Loading...</Text>
+          ? <Text style={styles.loadingText}>
+              Loading...
+            </Text>
           : <View>
               <Text style={styles.nameText}>
                 {idea.name}
@@ -78,9 +106,11 @@ export default ({ response, router }) => (
               <Text style={styles.descriptionText}>
                 {idea.description}
               </Text>
-              <Text>
-                Public? {idea.public ? "Yes" : "No"}
-              </Text>
+              {
+                idea.public
+                  ? <Text style={styles.publicText}>Public</Text>
+                  : null
+              }
               <OwnerControls
                 id={idea.id}
                 creator={idea.creator.id}
