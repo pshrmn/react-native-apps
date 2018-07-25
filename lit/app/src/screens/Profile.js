@@ -48,7 +48,12 @@ export default withApollo(({ router, client: apolloClient }) => (
           onPress={async () => {
             await logout();
             router.history.reset({
-              locations: ["/sign-in#login"]
+              locations: [
+                { 
+                  pathname: router.route.pathname("Sign In"),
+                  hash: "login"
+                }
+              ]
             });
             await apolloClient.cache.reset();      
           }}
